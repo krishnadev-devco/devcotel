@@ -1,4 +1,4 @@
-
+  
 import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { HomePage } from './pages/HomePage';
@@ -8,15 +8,12 @@ import { AboutUsPage } from './pages/AboutUsPage';
 import { ReviewsPage } from './pages/ReviewsPage';
 import { LoginModal } from './components/LoginModal';
 import { SignUpModal } from './components/SignUpModal';
-import { User } from './types';
+import { User, Review } from './types';
 
 // --- Supabase Configuration ---
 const supabaseUrl = "https://ljypfmwcqsloojghcwsf.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxqeXBmbXdjcXNsb29qZ2hjd3NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzNzE3MDIsImV4cCI6MjA3Njk0NzcwMn0.hJ8bqNh7Os6HugV7aOjfCu_7eE-IxZo9GGokNukalyY";
 
-// FIX: Check if window.supabase exists before calling createClient.
-// This prevents a crash if the Supabase script hasn't loaded yet,
-// allowing the app to fall back to static data gracefully.
 const supabase = (supabaseUrl && supabaseKey && (window as any).supabase)
     ? (window as any).supabase.createClient(supabaseUrl, supabaseKey)
     : null;
@@ -28,9 +25,15 @@ const staticResourcesData = [
     { id: 15, type: 'youtube', image: 'https://images.unsplash.com/photo-1611162616805-669c3fa0de13?q=80&w=1974&auto=format&fit=crop', category: 'Machine learning', title: 'Powered by freecode camp', instructor: 'Design with Us', rating: 4.9, price: 'Free', students: 250000, likes: 8200, community_link: '#', enroll_link: '#' }
 ];
 
+const staticReviewsData: Review[] = [
+    { name: 'Jane Doe', handle: 'janedoe', platform: 'Devcotel - Intro to React', reviewText: 'This was an amazing course! Highly recommend to anyone starting out with React.', date: '2025-07-28T10:00:00Z' },
+    { name: 'John Smith', handle: 'johnsmith', platform: 'YouTube - AI Explained', reviewText: 'Great overview of complex topics. The instructor was very clear and concise.', date: '2025-07-27T15:30:00Z' }
+];
+
 const App = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [resources, setResources] = useState<any[]>([]);
+    const [reviews, setReviews] = useState<Review[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -76,9 +79,46 @@ const App = () => {
         }
     };
 
+    const fetchReviews = async () => {
+        if (!supabase) {
+            console.warn("Supabase client is not configured. Falling back to static review data.");
+            setReviews(staticReviewsData);
+            return;
+        }
+
+        try {
+            const { data, error: dbError } = await supabase
+                .from('reviews')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (dbError) {
+                throw dbError;
+            }
+
+            if (data && data.length > 0) {
+                 const formattedReviews: Review[] = data.map(r => ({
+                    name: r.user_full_name || 'Anonymous',
+                    handle: r.user_handle || 'user',
+                    platform: r.platform || 'Unknown',
+                    reviewText: r.review_text || '',
+                    date: r.created_at || new Date().toISOString()
+                }));
+                setReviews(formattedReviews);
+            } else {
+                setReviews([]); // No reviews yet
+            }
+        } catch (e: any) {
+            // Log the actual error message or stringify the object for debugging
+            console.error("Error fetching reviews:", e.message || JSON.stringify(e));
+            setReviews(staticReviewsData); // Fallback
+        }
+    };
+
     // Fetch resources on initial load for all users
     useEffect(() => {
         fetchResources();
+        fetchReviews();
     }, []);
 
     // Listen to Supabase auth changes
@@ -95,7 +135,7 @@ const App = () => {
                         .from('profiles')
                         .select('full_name')
                         .eq('id', session.user.id)
-                        .single();
+                        .maybeSingle();
     
                     if (profileError) {
                         // Don't throw, just log. The user can exist without a profile.
@@ -213,7 +253,6 @@ const App = () => {
             
             const newLikesCount = (courseToUpdate.likes || 0) + 1;
 
-            // FIX: Replace RPC with a direct table update for wider compatibility.
             const { error: updateError } = await supabase
                 .from('courses')
                 .update({ likes: newLikesCount })
@@ -231,6 +270,41 @@ const App = () => {
         }
     };
     
+    const handlePostReview = async (reviewData: { platform: string; reviewText: string }) => {
+        if (!supabase || !currentUser) {
+            return { error: { message: "You must be logged in to post a review." } };
+        }
+        
+        const newReview = {
+            user_id: currentUser.id,
+            user_full_name: currentUser.full_name || 'Anonymous User',
+            user_handle: currentUser.username || currentUser.email?.split('@')[0] || 'user',
+            platform: reviewData.platform,
+            review_text: reviewData.reviewText,
+        };
+
+        // Optimistically update UI to feel faster
+        const optimisticReview: Review = {
+            name: newReview.user_full_name,
+            handle: newReview.user_handle,
+            platform: newReview.platform,
+            reviewText: newReview.review_text,
+            date: new Date().toISOString(),
+        };
+        setReviews(prevReviews => [optimisticReview, ...prevReviews]);
+
+        const { error } = await supabase.from('reviews').insert(newReview);
+
+        if (error) {
+            console.error("Error posting review:", error.message || JSON.stringify(error));
+            // Revert optimistic update on failure
+            fetchReviews();
+            return { error };
+        }
+        
+        return {};
+    };
+
     const promptLogin = () => setIsLoginModalOpen(true);
     
     const switchToSignUp = () => {
@@ -302,7 +376,7 @@ const App = () => {
                 {currentPage === 'about' && <AboutUsPage handleNavClick={handleNavClick} />}
                 {currentPage === 'courses' && <AllCoursesPage courses={resources} loading={loading} error={error} onLikeCourse={handleLikeCourse} currentUser={currentUser} promptLogin={promptLogin} />}
                 {currentPage === 'carrier-roadmap' && <CarrierRoadmapPage currentUser={currentUser} promptLogin={promptLogin} />}
-                {currentPage === 'reviews' && <ReviewsPage currentUser={currentUser} promptLogin={promptLogin} />}
+                {currentPage === 'reviews' && <ReviewsPage currentUser={currentUser} promptLogin={promptLogin} reviews={reviews} onPostReview={handlePostReview} />}
             </main>
 
             <footer className="footer">
