@@ -8,12 +8,16 @@ import { AboutUsPage } from './pages/AboutUsPage';
 import { ReviewsPage } from './pages/ReviewsPage';
 import { LoginModal } from './components/LoginModal';
 import { SignUpModal } from './components/SignUpModal';
+import { User } from './types';
 
 // --- Supabase Configuration ---
 const supabaseUrl = "https://ljypfmwcqsloojghcwsf.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxqeXBmbXdjcXNsb29qZ2hjd3NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzNzE3MDIsImV4cCI6MjA3Njk0NzcwMn0.hJ8bqNh7Os6HugV7aOjfCu_7eE-IxZo9GGokNukalyY";
 
-const supabase = (supabaseUrl && supabaseKey)
+// FIX: Check if window.supabase exists before calling createClient.
+// This prevents a crash if the Supabase script hasn't loaded yet,
+// allowing the app to fall back to static data gracefully.
+const supabase = (supabaseUrl && supabaseKey && (window as any).supabase)
     ? (window as any).supabase.createClient(supabaseUrl, supabaseKey)
     : null;
 
@@ -23,13 +27,6 @@ const staticResourcesData = [
     { id: 14, type: 'youtube', image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=1974&auto=format&fit=crop', category: 'Programming', title: 'Reference: Learn Go in 1 Hour', instructor: 'Tech Tutorials Tube', rating: 4.8, price: 'Free', students: 150000, likes: 4500, community_link: '#', enroll_link: '#' },
     { id: 15, type: 'youtube', image: 'https://images.unsplash.com/photo-1611162616805-669c3fa0de13?q=80&w=1974&auto=format&fit=crop', category: 'Machine learning', title: 'Powered by freecode camp', instructor: 'Design with Us', rating: 4.9, price: 'Free', students: 250000, likes: 8200, community_link: '#', enroll_link: '#' }
 ];
-
-export interface User {
-    id: string;
-    email?: string;
-    full_name?: string;
-    username?: string;
-}
 
 const App = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
