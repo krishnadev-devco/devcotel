@@ -1,36 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { ReviewCard, Review } from '../components/ReviewCard';
-import { User } from '../types'; 
+
+
+import React, { useState } from 'react';
+import { ReviewCard } from '../components/ReviewCard';
+import { User, Review } from '../types'; 
 
 interface ReviewsPageProps {
     currentUser: User | null;
     promptLogin: () => void;
+    reviews: Review[];
+    onPostReview: (reviewData: { platform: string; reviewText: string; }) => Promise<{ error?: any }>;
 }
 
-export const ReviewsPage: React.FC<ReviewsPageProps> = ({ currentUser, promptLogin }) => {
-    const [reviews, setReviews] = useState<Review[]>([]);
+export const ReviewsPage: React.FC<ReviewsPageProps> = ({ currentUser, promptLogin, reviews, onPostReview }) => {
     const [formData, setFormData] = useState({ platform: '', reviewText: '' });
     const [error, setError] = useState('');
-
-    useEffect(() => {
-        try {
-            const storedReviews = JSON.parse(localStorage.getItem('courseReviews') || '[]');
-            setReviews(storedReviews);
-        } catch (e) {
-            console.error("Failed to parse reviews from localStorage", e);
-            setReviews([]);
-        }
-    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!currentUser) {
-            setError('You must be logged in to post a review.');
+            promptLogin();
             return;
         }
         if (!formData.platform || !formData.reviewText) {
@@ -38,17 +31,17 @@ export const ReviewsPage: React.FC<ReviewsPageProps> = ({ currentUser, promptLog
             return;
         }
         setError('');
-        const newReview: Review = {
-            name: currentUser.full_name || 'Anonymous',
-            handle: currentUser.username || currentUser.email.split('@')[0],
+        
+        const { error: postError } = await onPostReview({
             platform: formData.platform,
             reviewText: formData.reviewText,
-            date: new Date().toISOString()
-        };
-        const updatedReviews = [newReview, ...reviews];
-        setReviews(updatedReviews);
-        localStorage.setItem('courseReviews', JSON.stringify(updatedReviews));
-        setFormData({ platform: '', reviewText: '' });
+        });
+        
+        if (postError) {
+            setError(postError.message);
+        } else {
+            setFormData({ platform: '', reviewText: '' }); // Clear form on success
+        }
     };
 
     return (
@@ -65,7 +58,7 @@ export const ReviewsPage: React.FC<ReviewsPageProps> = ({ currentUser, promptLog
                              {currentUser ? (
                                 <>
                                     <div className="logged-in-prompt">
-                                        <p>You are posting as: <strong>{currentUser.full_name}</strong> (@{currentUser.username})</p>
+                                        <p>You are posting as: <strong>{currentUser.full_name || currentUser.email}</strong></p>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="platform">Platform / Course</label>
@@ -90,7 +83,7 @@ export const ReviewsPage: React.FC<ReviewsPageProps> = ({ currentUser, promptLog
                          <div className="review-feed">
                              {reviews.length > 0 ? (
                                 reviews.map((review, index) => (
-                                    <ReviewCard key={index} review={review} isLast={index === reviews.length - 1}/>
+                                    <ReviewCard key={`${review.handle}-${review.date}`} review={review} isLast={index === reviews.length - 1}/>
                                 ))
                              ) : (
                                 <p style={{textAlign: 'center', padding: '2rem'}}>Be the first to write a review!</p>
