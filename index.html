@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,6 +16,15 @@
     <!-- Polyfill for process to avoid ReferenceError in browser environments -->
     <script>
       window.process = window.process || { env: { NODE_ENV: 'production' } };
+    </script>
+    <!-- Global Error Handler for debugging white screen issues -->
+    <script>
+      window.addEventListener('error', function(event) {
+        console.error('Global error caught:', event.error);
+      });
+      window.addEventListener('unhandledrejection', function(event) {
+        console.error('Unhandled rejection caught:', event.reason);
+      });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script type="importmap">
