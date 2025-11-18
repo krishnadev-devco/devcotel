@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ReviewCard, Review } from '../components/ReviewCard';
-import { User } from '../index'; 
+import { User } from '../types'; 
 
 interface ReviewsPageProps {
     currentUser: User | null;
