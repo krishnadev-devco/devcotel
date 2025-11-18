@@ -1,0 +1,39 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x] # Test on multiple supported Node.js versions
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      # Using 'npm ci' is generally faster and more reliable for CI environments
+      # because it installs dependencies directly from the package-lock.json file.
+      run: npm ci
+
+    - name: Build project
+      # This command assumes you have a "build" script in your package.json file.
+      # It's standard for React apps created with tools like Create React App or Vite.
+      run: npm run build
+
+    # Optional: If you have tests, you can uncomment the following lines.
+    # - name: Run tests
+    #   run: npm test
