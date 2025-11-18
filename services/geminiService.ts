@@ -1,7 +1,6 @@
+
 import { GoogleGenAI, Type } from "@google/genai";
 import { GeneratedRoadmap } from '../types';
-
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const roadmapSchema = {
     type: Type.OBJECT,
@@ -49,6 +48,11 @@ const roadmapSchema = {
 };
 
 export const generateCareerRoadmap = async (jobRole: string): Promise<GeneratedRoadmap> => {
+    // Initialize the client inside the function call.
+    // This prevents the application from crashing on startup if process.env.API_KEY is undefined.
+    // The error will only occur when the user actually tries to generate a roadmap.
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+
     const prompt = `Create a detailed career roadmap for someone aspiring to become a "${jobRole}". The roadmap should include:
 1.  A list of key skills, grouped by category.
 2.  A step-by-step learning path with estimated durations for each step.
@@ -58,7 +62,6 @@ Please provide the output in a structured JSON format.`;
 
     try {
         const response = await ai.models.generateContent({
-            // FIX: Use gemini-2.5-pro for complex text tasks like generating a career roadmap to ensure higher quality output.
             model: "gemini-2.5-pro",
             contents: prompt,
             config: {
@@ -67,7 +70,6 @@ Please provide the output in a structured JSON format.`;
             },
         });
 
-        // FIX: Per @google/genai guidelines, trim whitespace from the response text before parsing JSON for robustness.
         const data = JSON.parse(response.text.trim());
         
         if (!data.keySkills || !data.roadmap || !data.projectIdeas) {
