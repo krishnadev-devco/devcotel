@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { GeneratedRoadmap } from '../types';
+import { GeneratedRoadmap, User } from '../types';
 import { generateCareerRoadmap } from '../services/geminiService';
 import { SparklesIcon, SpinnerIcon, CheckCircleIcon, MapIcon, BeakerIcon, LightBulbIcon } from '../components/Icons';
-// FIX: The User type is defined and exported from index.tsx, not LoginPage.tsx.
-import { User } from '../index';
 
 const InitialState: React.FC = () => (
     <div className="roadmap-generator__initial-state">
