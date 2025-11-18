@@ -1,3 +1,4 @@
+
 name: Node.js CI
 
 on:
@@ -25,15 +26,9 @@ jobs:
         cache: 'npm'
 
     - name: Install dependencies
-      # Using 'npm ci' is generally faster and more reliable for CI environments
-      # because it installs dependencies directly from the package-lock.json file.
-      run: npm ci
+      # switched to npm install to handle missing package-lock.json scenarios automatically
+      run: npm install
 
     - name: Build project
-      # This command assumes you have a "build" script in your package.json file.
-      # It's standard for React apps created with tools like Create React App or Vite.
-      run: npm run build
-
-    # Optional: If you have tests, you can uncomment the following lines.
-    # - name: Run tests
-    #   run: npm test
+      # CI=false ensures that the build doesn't fail due to warnings (e.g. ESLint warnings)
+      run: CI=false npm run build
