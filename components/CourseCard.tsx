@@ -1,5 +1,5 @@
 import React from 'react';
-import { User } from '../index';
+import { User } from '../types';
 
 const typeDisplayMap = {
     course: 'Course',
