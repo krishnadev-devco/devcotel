@@ -1,3 +1,10 @@
+export interface User {
+    id: string;
+    email?: string;
+    full_name?: string;
+    username?: string;
+}
+
 export interface GeneratedRoadmap {
   keySkills: {
     category: string;
