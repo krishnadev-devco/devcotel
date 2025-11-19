@@ -49,9 +49,17 @@ const roadmapSchema = {
 
 export const generateCareerRoadmap = async (jobRole: string): Promise<GeneratedRoadmap> => {
     // Initialize the client inside the function call.
-    // This prevents the application from crashing on startup if process.env.API_KEY is undefined.
-    // The error will only occur when the user actually tries to generate a roadmap.
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    // We check for VITE_API_KEY (Vercel/Vite), REACT_APP_API_KEY (CRA), or standard API_KEY
+    const apiKey = (typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_API_KEY) || 
+                   (process.env as any).REACT_APP_API_KEY || 
+                   process.env.API_KEY;
+
+    if (!apiKey) {
+        console.error("Gemini API Key is missing. Please set VITE_API_KEY in your Vercel environment variables.");
+        throw new Error("API Key configuration is missing.");
+    }
+
+    const ai = new GoogleGenAI({ apiKey });
 
     const prompt = `Create a detailed career roadmap for someone aspiring to become a "${jobRole}". The roadmap should include:
 1.  A list of key skills, grouped by category.
@@ -62,7 +70,7 @@ Please provide the output in a structured JSON format.`;
 
     try {
         const response = await ai.models.generateContent({
-            model: "gemini-2.5-pro",
+            model: "gemini-2.5-flash",
             contents: prompt,
             config: {
                 responseMimeType: "application/json",
@@ -82,3 +90,4 @@ Please provide the output in a structured JSON format.`;
         throw new Error("Failed to generate career roadmap from AI service.");
     }
 };
+
