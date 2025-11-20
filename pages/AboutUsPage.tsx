@@ -185,7 +185,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({ handleNavClick }) => {
                             <h3>Contact Information</h3>
                             <p>We'd love to hear from you. Whether you have a question about our programs, partnerships, or anything else, our team is ready to answer all your questions.</p>
                             <ul className="contact-details">
-                                <li><i className="fas fa-map-marker-alt"></i> 123 Tech Avenue, Silicon Valley</li>
+                                <li><i className="fas fa-map-marker-alt"></i> 679514 palakkad</li>
                                 <li><i className="fas fa-phone-alt"></i> +91 DEVCOTEL</li>
                                 <li><i className="fas fa-envelope"></i> www.devcotel.com</li>
                             </ul>
