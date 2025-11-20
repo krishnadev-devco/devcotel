@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 
 interface AboutUsPageProps {
@@ -45,7 +46,7 @@ const CountUp = ({ end, duration = 2000, suffix = '' }) => {
         };
     }, [end, duration]);
 
-    return <span ref={ref}>{count.toLocaleString()}{suffix}</span>;
+    return <span ref={ref} aria-live="polite">{count.toLocaleString()}{suffix}</span>;
 };
 
 
@@ -119,16 +120,42 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({ handleNavClick }) => {
                     <p className="anim-child" style={{'--delay': '0.1s'} as React.CSSProperties}>Your trusted partner in skill development and career advancement.</p>
                 </section>
 
-                <section className="about-story animate-section">
-                    <h2 className="anim-child">Our Journey</h2>
-                    <div className="about-section-content">
-                        <div className="about-section-text anim-child anim-slide-in-left" style={{'--delay': '0.2s'} as React.CSSProperties}>
-                            <p>
-                                Our journey began in 2025 with a clear vision: to create a platform that genuinely helps students land their dream job. We saw a gap between traditional education and the fast-evolving tech industry, and we wanted to bridge it. Devcotel was born out of a passion for empowering the next generation of professionals through targeted skill development, mentorship, and strong industry connections.
-                            </p>
+                <section className="about-principles animate-section">
+                    <div className="values-grid">
+                        <div className="value-card anim-child" style={{'--delay': '0.1s'} as React.CSSProperties}>
+                            <div className="icon-wrapper"><i className="fas fa-project-diagram"></i></div>
+                            <h3>Platform Integration & Services</h3>
+                            <p>We connect with 18+ learning platforms, provide certification, and assist with job placement.</p>
                         </div>
-                        <div className="about-section-image anim-child anim-zoom-in" style={{'--delay': '0.1s'} as React.CSSProperties}>
-                            <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop" alt="Team collaborating on a project" />
+
+                        <div className="value-card anim-child" style={{'--delay': '0.2s'} as React.CSSProperties}>
+                            <div className="icon-wrapper"><i className="fas fa-file-contract"></i></div>
+                            <h3>Offer Availability</h3>
+                            <p>All platform offers are subject to their respective terms and conditions.</p>
+                        </div>
+
+                        <div className="value-card anim-child" style={{'--delay': '0.3s'} as React.CSSProperties}>
+                            <div className="icon-wrapper"><i className="fas fa-star-half-alt"></i></div>
+                            <h3>Suggestion Basis (Reviews)</h3>
+                            <p>We suggest platforms based on independent reviews and testimonial reports.</p>
+                        </div>
+
+                        <div className="value-card anim-child" style={{'--delay': '0.4s'} as React.CSSProperties}>
+                            <div className="icon-wrapper"><i className="fas fa-shield-alt"></i></div>
+                            <h3>No Third-Party Promotion</h3>
+                            <p>We do not promote platforms based on third-party endorsements or suggestions.</p>
+                        </div>
+
+                        <div className="value-card anim-child" style={{'--delay': '0.5s'} as React.CSSProperties}>
+                            <div className="icon-wrapper"><i className="fas fa-briefcase"></i></div>
+                            <h3>Suggestion Basis (Modules)</h3>
+                            <p>Platform suggestions are tailored to meet corporate needs, matching your requirements to relevant learning modules.</p>
+                        </div>
+
+                        <div className="value-card anim-child" style={{'--delay': '0.6s'} as React.CSSProperties}>
+                            <div className="icon-wrapper"><i className="fas fa-chart-pie"></i></div>
+                            <h3>Report Analysis</h3>
+                            <p>We use a third-party API for comprehensive report analysis and generating suggestions.</p>
                         </div>
                     </div>
                 </section>
@@ -136,35 +163,21 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({ handleNavClick }) => {
                  <section className="impact-stats animate-section">
                     <div className="impact-stat anim-child">
                         <i className="fas fa-user-graduate stat-icon"></i>
-                        <h3><CountUp end={200} />+</h3>
+                        <h3><CountUp end={51} />+</h3>
                         <p>Students Guided</p>
                     </div>
                      <div className="impact-stat anim-child" style={{'--delay': '0.1s'} as React.CSSProperties}>
                         <i className="fas fa-handshake stat-icon"></i>
-                        <h3><CountUp end={50} />+</h3>
-                        <p>Industry Partnerships</p>
+                        <h3><CountUp end={0} />+</h3>
+                        <p>course platform Partnerships</p>
                     </div>
                      <div className="impact-stat anim-child" style={{'--delay': '0.2s'} as React.CSSProperties}>
                         <i className="fas fa-bullseye stat-icon"></i>
                         <h3><CountUp end={95} suffix="%" /></h3>
-                        <p>Career Placement Rate</p>
+                        <p>Career Placement Rate through our recomentation</p>
                     </div>
                 </section>
 
-                <section className="about-mission animate-section">
-                    <h2 className="anim-child">Devcotel Assured</h2>
-                     <div className="about-section-content reverse">
-                        <div className="about-section-text anim-child anim-slide-in-right" style={{'--delay': '0.2s'} as React.CSSProperties}>
-                            <p>
-                                We have partnered with multiple leading platforms to bring you the best learning resources. When you enroll in a course through Devcotel, you get exclusive offers and discounts on programs that are "Devcotel Assured." This tag is our promise of quality and relevance. Beyond just courses, we actively monitor our users, providing personalized guidance to ensure they not only learn but also excel in their chosen careers. We're with you every step of the way.
-                            </p>
-                        </div>
-                         <div className="about-section-image anim-child anim-zoom-in" style={{'--delay': '0.1s'} as React.CSSProperties}>
-                            <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=2070&auto=format&fit=crop" alt="Student receiving an offer" />
-                        </div>
-                    </div>
-                </section>
-                
                 <section className="contact-section-premium animate-section">
                      <h2 className="anim-child">Get in Touch</h2>
                     <div className="contact-wrapper anim-child anim-zoom-in" style={{'--delay': '0.1s'} as React.CSSProperties}>
@@ -173,8 +186,8 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({ handleNavClick }) => {
                             <p>We'd love to hear from you. Whether you have a question about our programs, partnerships, or anything else, our team is ready to answer all your questions.</p>
                             <ul className="contact-details">
                                 <li><i className="fas fa-map-marker-alt"></i> 123 Tech Avenue, Silicon Valley</li>
-                                <li><i className="fas fa-phone-alt"></i> +1 (555) DEV-COTEL</li>
-                                <li><i className="fas fa-envelope"></i> hello@devcotel.com</li>
+                                <li><i className="fas fa-phone-alt"></i> +91 DEVCOTEL</li>
+                                <li><i className="fas fa-envelope"></i> www.devcotel.com</li>
                             </ul>
                         </div>
                         <div className="contact-form-panel">
