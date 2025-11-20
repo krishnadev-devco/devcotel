@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import { CourseCard } from '../components/CourseCard';
 
@@ -120,7 +121,6 @@ const showcaseData = {
     },
 };
 
-// FIX: Define an interface for the course prop and type the SkillCourseCard component with React.FC. This resolves a TypeScript error where the 'key' prop was being flagged as an undeclared prop during list rendering.
 interface SkillCourse {
     id: number;
     image: string;
@@ -407,20 +407,20 @@ export const HomePage = ({ courses, loading, error, handleNavClick, onLikeCourse
                         </form>
                         <div className="hero-stats">
                             <div className="stat-item">
-                                <h3>12k+</h3>
-                                <p>Fresh Graduates</p>
+                                <h3>118+</h3>
+                                <p>Parllel enroll clicks</p>
                             </div>
                             <div className="stat-item">
-                                <h3>9+</h3>
-                                <p>Years of Experience</p>
+                                <h3>2+</h3>
+                                <p>Months of sucess Experience</p>
                             </div>
                             <div className="stat-item">
-                                <h3>358+</h3>
-                                <p>Excellence Awards</p>
+                                <h3>37+</h3>
+                                <p>sucess suggestions</p>
                             </div>
                             <div className="stat-item">
-                                <h3>47+</h3>
-                                <p>Brand Partners</p>
+                                <h3>18+</h3>
+                                <p>Connections</p>
                             </div>
                         </div>
                     </div>
