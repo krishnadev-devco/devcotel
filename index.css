@@ -1,3 +1,4 @@
+
 :root {
   --bg-color: #fdfaf5;
   --primary-color: #ffc200;
@@ -1617,6 +1618,79 @@ body {
     margin-bottom: 50px;
     color: var(--dark-color);
 }
+
+/* New About Us Styles */
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 80px;
+}
+
+.value-card {
+    background-color: var(--white-color);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.value-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+.value-card .icon-wrapper {
+    width: 70px;
+    height: 70px;
+    background-color: rgba(255, 194, 0, 0.15); /* Primary color with opacity */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    font-size: 28px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.value-card:hover .icon-wrapper {
+    transform: scale(1.1) rotate(5deg);
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.value-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--dark-color);
+}
+
+.value-card p {
+    color: var(--gray-color);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+@media (max-width: 992px) {
+    .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 
 .about-section-content {
     display: grid;
