@@ -1,6 +1,7 @@
-  
+
 import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
+import './index.css';
 import { HomePage } from './pages/HomePage';
 import { AllCoursesPage } from './pages/courses';
 import { CarrierRoadmapPage } from './pages/carrierRoadmap';
@@ -41,6 +42,7 @@ const App = () => {
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
     const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
     const [authLoading, setAuthLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const fetchResources = async () => {
         setLoading(true);
@@ -61,9 +63,21 @@ const App = () => {
                 .order('id', { ascending: true });
 
             if (dbError) {
-                console.error("Supabase error:", dbError);
-                setError(`Database Error: ${dbError.message}. Check your table name and RLS policies.`);
-                setResources(staticResourcesData); // Fallback to static data
+                // Check if table is missing
+                 const isMissingTable = dbError.message && (
+                    dbError.message.includes("Could not find the table") || 
+                    dbError.message.includes("relation \"public.courses\" does not exist") ||
+                    dbError.code === '42P01'
+                );
+
+                if (isMissingTable) {
+                    console.warn("Supabase 'courses' table missing. Using static data fallback.");
+                    setResources(staticResourcesData);
+                } else {
+                    console.error("Supabase error:", dbError);
+                    setError(`Database Error: ${dbError.message}. Check your table name and RLS policies.`);
+                    setResources(staticResourcesData);
+                }
             } else if (data && data.length > 0) {
                 setResources(data);
             } else {
@@ -109,9 +123,21 @@ const App = () => {
                 setReviews([]); // No reviews yet
             }
         } catch (e: any) {
-            // Log the actual error message or stringify the object for debugging
-            console.error("Error fetching reviews:", e.message || JSON.stringify(e));
-            setReviews(staticReviewsData); // Fallback
+            // Check for missing table error (Postgres 42P01 or client-side schema error)
+            const isMissingTable = e.message && (
+                e.message.includes("Could not find the table") || 
+                e.message.includes("relation \"public.reviews\" does not exist") ||
+                e.code === '42P01'
+            );
+
+            if (isMissingTable) {
+                console.warn("Supabase 'reviews' table missing. Using static data fallback.");
+                setReviews(staticReviewsData);
+            } else {
+                // Log the actual error message or stringify the object for debugging
+                console.error("Error fetching reviews:", e.message || JSON.stringify(e));
+                setReviews(staticReviewsData); // Fallback
+            }
         }
     };
 
@@ -296,9 +322,21 @@ const App = () => {
         const { error } = await supabase.from('reviews').insert(newReview);
 
         if (error) {
-            console.error("Error posting review:", error.message || JSON.stringify(error));
             // Revert optimistic update on failure
             fetchReviews();
+
+            const isMissingTable = error.message && (
+                error.message.includes("Could not find the table") || 
+                error.message.includes("relation \"public.reviews\" does not exist") ||
+                error.code === '42P01'
+            );
+
+            if (isMissingTable) {
+                 console.error("Error: 'reviews' table does not exist in Supabase.");
+                 return { error: { message: "Review system is currently under maintenance (Table missing)." } };
+            }
+
+            console.error("Error posting review:", error.message || JSON.stringify(error));
             return { error };
         }
         
@@ -316,6 +354,18 @@ const App = () => {
         setIsSignUpModalOpen(false);
         setIsLoginModalOpen(true);
     };
+
+    // Filter resources based on search query
+    const filteredResources = resources.filter(resource => {
+        if (!searchQuery) return true;
+        const query = searchQuery.toLowerCase();
+        return (
+            (resource.title?.toLowerCase() || '').includes(query) ||
+            (resource.description?.toLowerCase() || '').includes(query) ||
+            (resource.category?.toLowerCase() || '').includes(query) ||
+            (resource.instructor?.toLowerCase() || '').includes(query)
+        );
+    });
 
     if (authLoading) {
         return <div className="fullscreen-loader">Loading...</div>;
@@ -355,7 +405,12 @@ const App = () => {
                             <div className="nav-right">
                                 <div className="search-bar">
                                     <i className="fas fa-search"></i>
-                                    <input type="text" placeholder="Search..." />
+                                    <input 
+                                        type="text" 
+                                        placeholder="Search courses..." 
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                    />
                                 </div>
                                 {currentUser ? (
                                      <button className="btn btn-login" onClick={handleLogout}>Logout</button>
@@ -372,9 +427,9 @@ const App = () => {
             </header>
 
             <main>
-                {currentPage === 'home' && <HomePage courses={resources.filter(r => r.type === 'course')} loading={loading} error={error} handleNavClick={handleNavClick} onLikeCourse={handleLikeCourse} currentUser={currentUser} promptLogin={promptLogin} />}
+                {currentPage === 'home' && <HomePage courses={filteredResources.filter(r => r.type === 'course')} loading={loading} error={error} handleNavClick={handleNavClick} onLikeCourse={handleLikeCourse} currentUser={currentUser} promptLogin={promptLogin} />}
                 {currentPage === 'about' && <AboutUsPage handleNavClick={handleNavClick} />}
-                {currentPage === 'courses' && <AllCoursesPage courses={resources} loading={loading} error={error} onLikeCourse={handleLikeCourse} currentUser={currentUser} promptLogin={promptLogin} />}
+                {currentPage === 'courses' && <AllCoursesPage courses={filteredResources} loading={loading} error={error} onLikeCourse={handleLikeCourse} currentUser={currentUser} promptLogin={promptLogin} />}
                 {currentPage === 'carrier-roadmap' && <CarrierRoadmapPage currentUser={currentUser} promptLogin={promptLogin} />}
                 {currentPage === 'reviews' && <ReviewsPage currentUser={currentUser} promptLogin={promptLogin} reviews={reviews} onPostReview={handlePostReview} />}
             </main>
