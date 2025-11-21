@@ -91,32 +91,32 @@ const showcaseData = {
         title: 'Expand your horizons with ChatGPT',
         description: 'Master tools and techniques to streamline your work, create stunning content, and 10x your productivity.',
         courses: [
-            { id: 5, image: 'https://img.freepik.com/free-vector/thoughtful-woman-with-laptop-planning-schedule-week_74855-20519.jpg?w=1060&t=st=1722256424~exp=1722257024~hmac=50e487198e723528f804fc64e62244e830e79391e0a29ef99335c05ab5976b97', title: 'The Complete AI Guide: Learn ChatGPT, Generative AI & More', instructor: 'Julian Melanson, Benza Maman', rating: 4.5, reviews: 51662, price: '₹549', old_price: '₹2,739', bestseller: true },
-            { id: 6, image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop', title: 'ChatGPT: Complete ChatGPT Course For Work 2025 (Ethically)!', instructor: 'Steve Ballinger, MBA', rating: 4.5, reviews: 117510, price: '₹619', old_price: '₹3,619', bestseller: true },
+            { id: 5, image: 'https://img.freepik.com/free-vector/thoughtful-woman-with-laptop-planning-schedule-week_74855-20519.jpg?w=1060&t=st=1722256424~exp=1722257024~hmac=50e487198e723528f804fc64e62244e830e79391e0a29ef99335c05ab5976b97', title: 'Prompt Engineering for ChatGPT  2025 Tutorial', instructor: 'Dr. Jules White Top Instructor powered by [COURSERA].How to apply prompt engineering to effectively work with large language models, like ChatGPT How to use prompt patterns to tap into powerful capabilities within large language models.', rating: 4.8, reviews: 7160, price: 'devcotel recomented', old_price: 'this is not an affilation', bestseller: true, link: 'https://www.coursera.org/learn/prompt-engineering?utm_medium=sem&utm_source=gg&utm_campaign=b2c_india_x_coursera_ftcof_courseraplus_cx_dr_bau_gg_sem_bd-ex_in_all_m_hyb_24-05_x&campaignid=21327429274&adgroupid=162815312357&device=c&keyword=coursera&matchtype=e&network=g&devicemodel=&creativeid=700607287634&assetgroupid=&targetid=kwd-36262515261&extensionid=&placement=&gad_source=1&gad_campaignid=21327429274&gbraid=0AAAAADdKX6Y7ZtIr7vsRs0oj7m9hAQSYl&gclid=CjwKCAiAwqHIBhAEEiwAx9cTeemR1ZwxOa-7IJqD-MMae5SEl9Hzo-bA3tV8Q6HpYAgcY4Zzrw7MchoCF-EQAvD_BwE' },
+            { id: 6, image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop', title: 'AI-Powered Business Analysis: Excel, KPIs & GenAI Specialization', instructor: 'Kelley O Connell [COURSERA]Apply GenAI tools like ChatGPT to automate business analysis tasks and generate faster insights across multiple industries.Create impactful data visualizations and reports using AI-powered tools while maintaining ethical AI practices.', rating: 4.5, reviews: 10, price: 'Devcotel recomented', old_price: 'this is not an affilation', bestseller: true, link: 'https://www.coursera.org/specializations/ai-powered-business-analysis-excel-kpis-and-genai' },
         ]
     },
     'Data Science': {
         title: 'Unlock insights with Data Science',
         description: 'Learn to analyze data, build predictive models, and make data-driven decisions that impact business outcomes.',
         courses: [
-            { id: 2, image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop', title: 'Introduction to Python for Data Science', instructor: 'Jane Smith', rating: 4.9, reviews: 9876, price: '₹499', old_price: '₹2,999', bestseller: false },
-            { id: 7, image: 'https://images.unsplash.com/photo-1638369320327-58a5848c9a3b?q=80&w=1964&auto=format&fit=crop', title: 'Advanced Machine Learning & AI', instructor: 'Dr. Angela Yu', rating: 4.8, reviews: 25432, price: '₹799', old_price: '₹4,499', bestseller: true },
+            { id: 2, image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop', title: 'Introduction to Python for Data Science', instructor: 'Jane Smith', rating: 4.9, reviews: 9876, price: '₹499', old_price: '₹2,999', bestseller: false, link: 'https://krishnadev-devco.github.io/form-test/' },
+            { id: 7, image: 'https://images.unsplash.com/photo-1638369320327-58a5848c9a3b?q=80&w=1964&auto=format&fit=crop', title: 'Advanced Machine Learning & AI', instructor: 'Dr. Angela Yu', rating: 4.8, reviews: 25432, price: '₹799', old_price: '₹4,499', bestseller: true, link: 'https://krishnadev-devco.github.io/form-test/' },
         ]
     },
     'Python': {
         title: 'Master the Python programming language',
         description: 'From web development to data analysis, Python is a versatile language that opens doors to countless opportunities.',
          courses: [
-            { id: 8, image: 'https://images.unsplash.com/photo-1526379095098-d64698bf3824?q=80&w=2070&auto=format&fit=crop', title: 'Python for Absolute Beginners', instructor: 'Jose Portilla', rating: 4.6, reviews: 150231, price: '₹499', old_price: '₹1,999', bestseller: true },
-            { id: 9, image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=2088&auto=format&fit=crop', title: 'Automate the Boring Stuff with Python', instructor: 'Al Sweigart', rating: 4.7, reviews: 89123, price: '₹549', old_price: '₹2,739', bestseller: false },
+            { id: 8, image: 'https://images.unsplash.com/photo-1526379095098-d64698bf3824?q=80&w=2070&auto=format&fit=crop', title: 'Python for Absolute Beginners', instructor: 'Jose Portilla', rating: 4.6, reviews: 150231, price: '₹499', old_price: '₹1,999', bestseller: true, link: 'https://krishnadev-devco.github.io/form-test/' },
+            { id: 9, image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=2088&auto=format&fit=crop', title: 'Automate the Boring Stuff with Python', instructor: 'Al Sweigart', rating: 4.7, reviews: 89123, price: '₹549', old_price: '₹2,739', bestseller: false, link: 'https://krishnadev-devco.github.io/form-test/' },
         ]
     },
     'AI': {
         title: 'Dive into the world of Artificial Intelligence',
         description: 'Explore the fundamentals of AI, machine learning, and neural networks to build intelligent systems of the future.',
         courses: [
-             { id: 5, image: 'https://img.freepik.com/free-vector/thoughtful-woman-with-laptop-planning-schedule-week_74855-20519.jpg?w=1060&t=st=1722256424~exp=1722257024~hmac=50e487198e723528f804fc64e62244e830e79391e0a29ef99335c05ab5976b97', title: 'The Complete AI Guide: Learn ChatGPT, Generative AI & More', instructor: 'Julian Melanson, Benza Maman', rating: 4.5, reviews: 51662, price: '₹549', old_price: '₹2,739', bestseller: true },
-             { id: 7, image: 'https://images.unsplash.com/photo-1638369320327-58a5848c9a3b?q=80&w=1964&auto=format&fit=crop', title: 'Advanced Machine Learning & AI', instructor: 'Dr. Angela Yu', rating: 4.8, reviews: 25432, price: '₹799', old_price: '₹4,499', bestseller: true },
+             { id: 5, image: 'https://img.freepik.com/free-vector/thoughtful-woman-with-laptop-planning-schedule-week_74855-20519.jpg?w=1060&t=st=1722256424~exp=1722257024~hmac=50e487198e723528f804fc64e62244e830e79391e0a29ef99335c05ab5976b97', title: 'The Complete AI Guide: Learn ChatGPT, Generative AI & More', instructor: 'Julian Melanson, Benza Maman', rating: 4.5, reviews: 51662, price: '₹549', old_price: '₹2,739', bestseller: true, link: 'https://krishnadev-devco.github.io/form-test/' },
+             { id: 7, image: 'https://images.unsplash.com/photo-1638369320327-58a5848c9a3b?q=80&w=1964&auto=format&fit=crop', title: 'Advanced Machine Learning & AI', instructor: 'Dr. Angela Yu', rating: 4.8, reviews: 25432, price: '₹799', old_price: '₹4,499', bestseller: true, link: 'https://krishnadev-devco.github.io/form-test/' },
         ]
     },
 };
@@ -131,24 +131,30 @@ interface SkillCourse {
     price: string;
     old_price: string;
     bestseller: boolean;
+    link: string;
 }
 
 const SkillCourseCard: React.FC<{ course: SkillCourse }> = ({ course }) => (
-    <a href="https://krishnadev-devco.github.io/form-test/" target="_blank" rel="noopener noreferrer" className="skill-course-card">
+    <div className="skill-course-card">
         <img src={course.image} alt={course.title} />
-        <h4>{course.title}</h4>
-        <p className="instructor">{course.instructor}</p>
-        <div className="rating-line">
-            <span className="rating-score">{course.rating.toFixed(1)}</span>
-            <i className="fas fa-star"></i>
-            <span className="reviews-count">({course.reviews.toLocaleString()})</span>
+        <div className="skill-card-details">
+            <h4>{course.title}</h4>
+            <p className="instructor">{course.instructor}</p>
+            <div className="rating-line">
+                <span className="rating-score">{course.rating.toFixed(1)}</span>
+                <i className="fas fa-star"></i>
+                <span className="reviews-count">({course.reviews.toLocaleString()})</span>
+            </div>
+            <div className="price-line">
+                <span className="current-price">{course.price}</span>
+                <span className="old-price">{course.old_price}</span>
+            </div>
+            {course.bestseller && <div className="bestseller-tag">Bestseller</div>}
+            <a href={course.link} target="_blank" rel="noopener noreferrer" className="btn-know-more">
+                Know More
+            </a>
         </div>
-        <div className="price-line">
-            <span className="current-price">{course.price}</span>
-            <span className="old-price">{course.old_price}</span>
-        </div>
-        {course.bestseller && <div className="bestseller-tag">Bestseller</div>}
-    </a>
+    </div>
 );
 
 
@@ -411,15 +417,15 @@ export const HomePage = ({ courses, loading, error, handleNavClick, onLikeCourse
                                 <p>Parllel enroll clicks</p>
                             </div>
                             <div className="stat-item">
-                                <h3>2+</h3>
-                                <p>Months of sucess Experience</p>
+                                <h3>5+</h3>
+                                <p>Months of Experience</p>
                             </div>
                             <div className="stat-item">
-                                <h3>37+</h3>
-                                <p>sucess suggestions</p>
+                                <h3>38+</h3>
+                                <p>sucess suggestion</p>
                             </div>
                             <div className="stat-item">
-                                <h3>18+</h3>
+                                <h3>47+</h3>
                                 <p>Connections</p>
                             </div>
                         </div>
@@ -428,8 +434,8 @@ export const HomePage = ({ courses, loading, error, handleNavClick, onLikeCourse
                         <div className="hero-image-wrapper">
                             <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI1LTA2L3Jhd3BpeGVsb2ZmaWNlN19waG90b19vZl95b3VuZ19pbmRpYW5fYm95X2hvbGRpbmdfc3R1ZGVudF9iYWNrcF9mMTgzNzMwYy00ZDdmLTRlNzUtOGE1MC1iZmFkNTI5MjMyYjFfMS5qcGc.jpg" alt="Happy student" />
                         </div>
-                        <div className="job-tag job-tag-1">100+ platforms</div>
-                        <div className="job-tag job-tag-2">1000+ courses</div>
+                        <div className="job-tag job-tag-1">21+ platforms</div>
+                        <div className="job-tag job-tag-2">19+ courses</div>
                     </div>
                 </div>
             </div>
