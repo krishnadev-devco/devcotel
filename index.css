@@ -1,4 +1,5 @@
 
+
 :root {
   --bg-color: #fdfaf5;
   --primary-color: #ffc200;
@@ -488,6 +489,89 @@ body {
 }
 
 
+/* How It Works Section */
+.how-it-works-section {
+    padding: 60px 0;
+    background-color: #fcfcfc;
+}
+
+.steps-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 30px;
+    margin-top: 50px;
+    position: relative;
+}
+
+.step-card {
+    background: var(--white-color);
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    flex: 1;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.step-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.step-number {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--dark-color);
+    color: var(--primary-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border: 3px solid var(--white-color);
+}
+
+.step-icon {
+    font-size: 48px;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
+.step-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--dark-color);
+}
+
+.step-card p {
+    color: var(--gray-color);
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+.step-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 24px;
+    opacity: 0.5;
+}
+
+
 /* Popular Courses Section */
 .popular-courses {
     padding: 80px 0;
@@ -773,14 +857,31 @@ body {
 .skill-course-card {
     text-decoration: none;
     color: var(--dark-color);
+    /* New layout properties */
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 15px;
+    transition: all 0.3s ease;
+    height: 100%;
 }
+.skill-course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow);
+    border-color: var(--primary-color);
+}
+
 .skill-course-card img {
     width: 100%;
     height: 150px;
     object-fit: cover;
-    border: 1px solid var(--border-color);
-    margin-bottom: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: none;
 }
+
 .skill-course-card h4 {
     font-size: 16px;
     font-weight: 600;
@@ -830,6 +931,32 @@ body {
     font-weight: 700;
     border-radius: 4px;
     margin-top: 10px;
+}
+
+.skill-card-content {
+    flex-grow: 1;
+    margin-bottom: 15px;
+}
+
+.know-more-link {
+    margin-top: auto;
+    padding-top: 15px;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s ease;
+    border-top: 1px solid #eee;
+}
+
+.know-more-link i {
+    transition: transform 0.3s ease;
+}
+
+.skill-course-card:hover .know-more-link i {
+    transform: translateX(5px);
 }
 
 
@@ -969,183 +1096,135 @@ body {
     color: var(--dark-color);
 }
 
-
-/* Roadmap Section */
-.roadmap {
+/* --- Course Insights Section --- */
+.course-insights-section {
     padding: 80px 0;
-    overflow-x: clip;
+    background-color: #fffcf5; /* Slightly warmer background */
 }
 
-.roadmap .section-header p {
-    font-size: 18px;
-    color: var(--gray-color);
-    max-width: 600px;
-    margin: 10px auto 0;
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
 }
 
-.roadmap-visual {
-    position: relative;
-    width: 100%;
-    max-width: 1000px;
-    margin: 60px auto 0;
-    height: 800px;
+.insight-card {
+    background: var(--white-color);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease;
+}
+.insight-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
 }
 
-.roadmap-svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
+.insight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.roadmap-path-draw {
-    fill: none;
-    stroke: #777; /* Road color */
-    stroke-width: 28;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-dasharray: 4500;
-    stroke-dashoffset: 4500;
-    transition: stroke-dashoffset 4s ease-in-out;
-}
-
-.roadmap-path-draw-dashed {
-    fill: none;
-    stroke: var(--white-color);
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-dasharray: 10 20;
-    opacity: 0;
-    transition: opacity 1s ease-in;
-    transition-delay: 3s;
-}
-
-.roadmap-visual.is-visible .roadmap-path-draw {
-    stroke-dashoffset: 0;
-}
-.roadmap-visual.is-visible .roadmap-path-draw-dashed {
-    opacity: 1;
-}
-
-/* Scenery styles */
-.scenery > * {
-    opacity: 0;
-    transform: translateY(15px) scale(0.9);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    transition-delay: var(--delay, 0s);
-}
-
-.roadmap-visual.is-visible .scenery > * {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-.scenery-mountain {
-    fill: #a2d2a2;
-}
-
-.scenery-cloud {
-    fill: #e0e0e0;
-    opacity: 0.8;
-}
-
-.scenery-tree rect {
-    fill: #8B4513;
-}
-.scenery-tree circle {
-    fill: #228B22;
-}
-
-
-.roadmap-milestone {
-    position: absolute;
-    width: 200px;
-    opacity: 0;
-    transform: scale(0.5);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    transition-delay: var(--delay, 0s);
-}
-
-.roadmap-visual.is-visible .roadmap-milestone {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.roadmap-pin {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    border-radius: 50% 50% 50% 0;
-    background-color: var(--pin-color, var(--primary-color));
-    transform: rotate(-45deg);
+.insight-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 194, 0, 0.1);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    margin: 0 auto 10px;
+    font-size: 24px;
+    color: var(--primary-color);
 }
 
-.roadmap-pin::before {
-    content: '';
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    background-color: var(--white-color);
-    border-radius: 50%;
+.insight-score-box {
+    text-align: right;
 }
-
-.roadmap-info {
-    position: absolute;
-    bottom: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
-    background-color: var(--white-color);
-    padding: 10px 15px;
-    border-radius: 8px;
-    box-shadow: var(--box-shadow);
-    text-align: center;
+.score-val {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    color: #28a745;
 }
-
-.roadmap-info .month {
-    font-size: 13px;
-    font-weight: 600;
+.score-label {
+    font-size: 12px;
     color: var(--gray-color);
 }
 
-.roadmap-info .title {
-    font-size: 15px;
+.insight-card h3 {
+    font-size: 20px;
     font-weight: 600;
-    line-height: 1.3;
-}
-/* Adjust info box position based on pin position to avoid overlap */
-.roadmap-milestone.align-top .roadmap-info {
-    bottom: auto;
-    top: 60px;
+    margin-bottom: 10px;
 }
 
-.btn-generate-roadmap {
+.insight-desc {
+    font-size: 14px;
+    color: var(--gray-color);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    min-height: 66px;
+}
+
+.insight-future {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 13px;
+}
+.insight-future strong {
     display: block;
-    width: fit-content;
-    margin: 50px auto 0;
-    padding: 14px 35px;
-    background-color: var(--primary-color);
+    margin-bottom: 5px;
     color: var(--dark-color);
-    border: none;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 16px;
-    box-shadow: 0 4px 15px rgba(255, 194, 0, 0.4);
-    transition: all 0.3s ease;
+}
+.insight-future p {
+    color: var(--gray-color);
 }
 
-.btn-generate-roadmap:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 7px 20px rgba(255, 194, 0, 0.5);
+
+/* Our Approach Section */
+.our-approach-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.approach-block {
+    background: var(--white-color);
+    padding: 30px;
+    border-radius: 12px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.approach-icon {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background: var(--dark-color);
+    color: var(--white-color);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.approach-content h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.approach-content p {
+    font-size: 14px;
+    color: var(--gray-color);
+    line-height: 1.6;
 }
 
 /* --- Features Section --- */
@@ -2149,6 +2228,66 @@ body {
     transform: translateY(0) scale(1);
 }
 
+/* --- Empty State Styles --- */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: var(--white-color);
+    border-radius: 15px;
+    border: 2px dashed var(--border-color);
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    opacity: 0.8;
+    background-color: rgba(255, 194, 0, 0.1);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.empty-state h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--dark-color);
+}
+
+.empty-state p {
+    color: var(--gray-color);
+    margin-bottom: 25px;
+    max-width: 450px;
+    line-height: 1.6;
+}
+
+.btn-empty-cta {
+    padding: 12px 30px;
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    font-size: 1rem;
+}
+
+.btn-empty-cta:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
 /* --- Responsive Styles --- */
 .roadmap-svg-mobile {
     display: none;
@@ -2295,6 +2434,10 @@ body {
     .contact-wrapper {
         flex-direction: column;
     }
+
+    .our-approach-section {
+        grid-template-columns: 1fr;
+    }
 }
 
 
@@ -2319,7 +2462,7 @@ body {
     padding-bottom: 0;
   }
   
-  .popular-courses, .testimonials, .roadmap, .learn-anything-section, .features-section, .blogs-section, .skills-showcase-section, .reviews-page {
+  .popular-courses, .testimonials, .course-insights-section, .learn-anything-section, .features-section, .blogs-section, .skills-showcase-section, .reviews-page {
     padding: 60px 0;
   }
 
@@ -2427,6 +2570,15 @@ body {
   
   .newsletter-form {
     justify-content: center;
+  }
+
+  .steps-container {
+      flex-direction: column;
+  }
+  
+  .step-connector {
+      transform: rotate(90deg);
+      margin: 10px 0;
   }
 }
 
