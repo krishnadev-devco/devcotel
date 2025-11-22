@@ -1,5 +1,4 @@
 
-
 import React, { useState } from 'react';
 import { ReviewCard } from '../components/ReviewCard';
 import { User, Review } from '../types'; 
@@ -86,7 +85,13 @@ export const ReviewsPage: React.FC<ReviewsPageProps> = ({ currentUser, promptLog
                                     <ReviewCard key={`${review.handle}-${review.date}`} review={review} isLast={index === reviews.length - 1}/>
                                 ))
                              ) : (
-                                <p style={{textAlign: 'center', padding: '2rem'}}>Be the first to write a review!</p>
+                                <div className="empty-state" style={{ border: 'none', boxShadow: 'none', padding: '40px 20px' }}>
+                                    <div className="empty-state-icon" style={{ width: '60px', height: '60px', fontSize: '1.8rem' }}>
+                                        <i className="far fa-comments"></i>
+                                    </div>
+                                    <h3>No reviews yet</h3>
+                                    <p>Be the first to share your learning experience with the community. Your feedback helps others!</p>
+                                </div>
                              )}
                         </div>
                     </div>
