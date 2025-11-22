@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { CourseCard } from '../components/CourseCard';
 
@@ -38,13 +39,29 @@ export const AllCoursesPage = ({ courses, loading, error, onLikeCourse, currentU
                 {loading && <p className="status-message">Loading resources...</p>}
                 {error && <p className="status-message error">{error}</p>}
                 {!loading && !error && (
-                    <div className="course-grid">
-                        {filteredCourses.map((course, index) => (
-                            <CourseCard key={course.id || index} course={course} onLike={onLikeCourse} currentUser={currentUser} promptLogin={promptLogin} />
-                        ))}
-                    </div>
+                    <>
+                        {filteredCourses.length > 0 ? (
+                            <div className="course-grid">
+                                {filteredCourses.map((course, index) => (
+                                    <CourseCard key={course.id || index} course={course} onLike={onLikeCourse} currentUser={currentUser} promptLogin={promptLogin} />
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="empty-state">
+                                <div className="empty-state-icon">
+                                    <i className="fas fa-search"></i>
+                                </div>
+                                <h3>No resources found</h3>
+                                <p>We couldn't find any {activeCategory !== 'All' ? activeCategory.toLowerCase() : 'resources'} matching your criteria. Try exploring other categories.</p>
+                                {activeCategory !== 'All' && (
+                                    <button className="btn-empty-cta" onClick={() => setActiveCategory('All')}>
+                                        View All Resources
+                                    </button>
+                                )}
+                            </div>
+                        )}
+                    </>
                 )}
-                {!loading && filteredCourses.length === 0 && !error && <p className="status-message">No resources found in this category.</p>}
             </div>
         </div>
     );
