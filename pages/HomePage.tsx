@@ -352,8 +352,8 @@ export const HomePage = ({ courses, loading, error, handleNavClick, onLikeCourse
             <div className="container">
                 <div className="hero-content">
                     <div className="hero-text">
-                        <h1>Learning skills for a better career</h1>
-                        <p>We believe everyone has the capacity to be creative. Get started with our free trial and join a community of passionate learners today.</p>
+                        <h1>WE keep your #carrier signal's clean.</h1>
+                        <p>THE SMARTEST LEARNING ECOSYSTEM CUTS THROUGH THE NOICE. OUR TEAM AND DEVCOTEL AI IS RADICALLY BIASED TOWARDS YOUR CORE NEEDS. <b>| DATASCIENCE | MACHINE LEARNING | CYBER SECURITY | ARTIFICAL INTELLIGENCE | CLOUD COMPUTING |</b></p>
                         <form className="hero-form">
                             <input type="email" placeholder="Enter your email" />
                             <button type="submit">Start Free Trial</button>
@@ -381,8 +381,8 @@ export const HomePage = ({ courses, loading, error, handleNavClick, onLikeCourse
                         <div className="hero-image-wrapper">
                             <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI1LTA2L3Jhd3BpeGVsb2ZmaWNlN19waG90b19vZl95b3VuZ19pbmRpYW5fYm95X2hvbGRpbmdfc3R1ZGVudF9iYWNrcF9mMTgzNzMwYy00ZDdmLTRlNzUtOGE1MC1iZmFkNTI5MjMyYjFfMS5qcGc.jpg" alt="Happy student" />
                         </div>
-                        <div className="job-tag job-tag-1">100+ platforms</div>
-                        <div className="job-tag job-tag-2">1000+ courses</div>
+                        <div className="job-tag job-tag-1">18+ platforms</div>
+                        <div className="job-tag job-tag-2">29+ courses</div>
                     </div>
                 </div>
             </div>
