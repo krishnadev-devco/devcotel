@@ -2,6 +2,21 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { GeneratedRoadmap } from '../types';
 
+const getAiClient = () => {
+    // Initialize the client inside the function call.
+    // We check for VITE_API_KEY (Vercel/Vite), REACT_APP_API_KEY (CRA), or standard API_KEY
+    const apiKey = (typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_API_KEY) || 
+                   (process.env as any).REACT_APP_API_KEY || 
+                   process.env.API_KEY;
+
+    if (!apiKey) {
+        console.error("Gemini API Key is missing. Please set VITE_API_KEY in your Vercel environment variables.");
+        throw new Error("API Key configuration is missing.");
+    }
+
+    return new GoogleGenAI({ apiKey });
+};
+
 const roadmapSchema = {
     type: Type.OBJECT,
     properties: {
@@ -48,18 +63,7 @@ const roadmapSchema = {
 };
 
 export const generateCareerRoadmap = async (jobRole: string): Promise<GeneratedRoadmap> => {
-    // Initialize the client inside the function call.
-    // We check for VITE_API_KEY (Vercel/Vite), REACT_APP_API_KEY (CRA), or standard API_KEY
-    const apiKey = (typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_API_KEY) || 
-                   (process.env as any).REACT_APP_API_KEY || 
-                   process.env.API_KEY;
-
-    if (!apiKey) {
-        console.error("Gemini API Key is missing. Please set VITE_API_KEY in your Vercel environment variables.");
-        throw new Error("API Key configuration is missing.");
-    }
-
-    const ai = new GoogleGenAI({ apiKey });
+    const ai = getAiClient();
 
     const prompt = `Create a detailed career roadmap for someone aspiring to become a "${jobRole}". The roadmap should include:
 1.  A list of key skills, grouped by category.
@@ -90,4 +94,15 @@ Please provide the output in a structured JSON format.`;
         throw new Error("Failed to generate career roadmap from AI service.");
     }
 };
+
+export const createChatSession = async () => {
+    const ai = getAiClient();
+    return ai.chats.create({
+        model: "gemini-2.5-flash",
+        config: {
+            systemInstruction: "You are Devcotel's Premium AI Consultant. Your purpose is to help users find the best courses to upskill.\n\nCRITICAL RULE: You must ONLY recommend courses and learning resources available in India or specifically tailored for the Indian market (e.g., NPTEL, upGrad, Scaler, Great Learning, C-DAC, or Indian-specific content on global platforms like Coursera/Udemy with INR pricing). \n\nWhen recommending, consider:\n1. User Reviews (mention hypothetical or aggregate sentiment)\n2. Course Modules (briefly)\n3. Career Potential in India\n4. Pricing/Offers (in INR)\n\nBe professional, encouraging, and helpful. Keep responses concise.",
+        }
+    });
+};
+
 
