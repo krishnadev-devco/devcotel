@@ -1,6 +1,7 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import { CourseCard } from '../components/CourseCard';
+import { ChatbotModal } from '../components/ChatbotModal';
 
 const testimonialsData = [
     {
@@ -168,7 +169,7 @@ const SkillsShowcase = () => {
 };
 
 
-const LearnAnythingSection = () => (
+const LearnAnythingSection = ({ onOpenChat }: { onOpenChat: () => void }) => (
     <section className="learn-anything-section">
         <div className="container">
             <div className="learn-anything-content">
@@ -176,7 +177,15 @@ const LearnAnythingSection = () => (
                     <p className="pre-header">LEARNERS AND STUDENTS</p>
                     <h2><span>Hello!</span> i am here to help you #discover your perfect course..</h2>
                     <p>Build a deep, solid Networks with devcotel community and more.</p>
-                    <a href="https://krishnadev-devco.github.io/form-test/" onClick={(e) => e.preventDefault()} className="btn-primary">LET'S FIND TOGETHER</a>
+                    <button 
+                        onClick={(e) => { 
+                            e.preventDefault(); 
+                            onOpenChat(); 
+                        }} 
+                        className="btn-primary"
+                    >
+                        LET'S FIND TOGETHER
+                    </button>
                 </div>
                 <div className="learn-anything-image">
                     <img src="https://img.freepik.com/free-vector/freelancer-working-laptop-her-house_1150-35054.jpg?semt=ais_hybrid&w=740&q=80" alt="Illustration of learning tools" />
@@ -346,119 +355,125 @@ const HowItWorksSection = () => (
     </section>
 );
 
-export const HomePage = ({ courses, loading, error, handleNavClick, onLikeCourse, currentUser, promptLogin }) => (
-    <>
-        <section className="hero">
-            <div className="container">
-                <div className="hero-content">
-                    <div className="hero-text">
-                        <h1>WE keep your #carrier signal's clean.</h1>
-                        <p>THE SMARTEST LEARNING ECOSYSTEM CUTS THROUGH THE NOICE. OUR TEAM AND DEVCOTEL AI IS RADICALLY BIASED TOWARDS YOUR CORE NEEDS. <b>| DATASCIENCE | MACHINE LEARNING | CYBER SECURITY | ARTIFICAL INTELLIGENCE | CLOUD COMPUTING |</b></p>
-                        <form className="hero-form">
-                            <input type="email" placeholder="Enter your email" />
-                            <button type="submit">Start Free Trial</button>
-                        </form>
-                        <div className="hero-stats">
-                            <div className="stat-item">
-                                <h3>118+</h3>
-                                <p>Parllel enroll clicks</p>
-                            </div>
-                            <div className="stat-item">
-                                <h3>2+</h3>
-                                <p>Months of sucess Experience</p>
-                            </div>
-                            <div className="stat-item">
-                                <h3>37+</h3>
-                                <p>sucess suggestions</p>
-                            </div>
-                            <div className="stat-item">
-                                <h3>18+</h3>
-                                <p>Connections</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="hero-image">
-                        <div className="hero-image-wrapper">
-                            <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI1LTA2L3Jhd3BpeGVsb2ZmaWNlN19waG90b19vZl95b3VuZ19pbmRpYW5fYm95X2hvbGRpbmdfc3R1ZGVudF9iYWNrcF9mMTgzNzMwYy00ZDdmLTRlNzUtOGE1MC1iZmFkNTI5MjMyYjFfMS5qcGc.jpg" alt="Happy student" />
-                        </div>
-                        <div className="job-tag job-tag-1">18+ platforms</div>
-                        <div className="job-tag job-tag-2">29+ courses</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+export const HomePage = ({ courses, loading, error, handleNavClick, onLikeCourse, currentUser, promptLogin }) => {
+    const [isChatOpen, setIsChatOpen] = useState(false);
 
-        <HowItWorksSection />
-
-        <section className="popular-courses">
-            <div className="container">
-                <div className="section-header">
-                    <h2>Offering Courses</h2>
-                </div>
-                {loading && <p className="status-message">Loading courses...</p>}
-                {error && <p className="status-message error">{error}</p>}
-                {!loading && !error && (
-                    <>
-                        {courses.length > 0 ? (
-                            <div className="course-grid">
-                                {courses.slice(0, 3).map((course, index) => (
-                                    <CourseCard key={course.id || index} course={course} onLike={onLikeCourse} currentUser={currentUser} promptLogin={promptLogin} />
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="empty-state">
-                                <div className="empty-state-icon">
-                                    <i className="fas fa-graduation-cap"></i>
+    return (
+        <>
+            <section className="hero">
+                <div className="container">
+                    <div className="hero-content">
+                        <div className="hero-text">
+                            <h1>WE keep your #carrier signal's clean.</h1>
+                            <p>THE SMARTEST LEARNING ECOSYSTEM CUTS THROUGH THE NOICE . OUR TEAM AND CORE AI IS RADICALLY BIASED TOWARDS YOUR CORE NEEDS .    <b>| DATASCIENCE | MACHINE LEARNING | CYBER SECURITY | ARTIFICAL INTELLIGENCE | CLOUD COMPUTING |</b></p>
+                            <form className="hero-form">
+                                <input type="email" placeholder="Enter your email" />
+                                <button type="submit">Start Free Trial</button>
+                            </form>
+                            <div className="hero-stats">
+                                <div className="stat-item">
+                                    <h3>118+</h3>
+                                    <p>Parllel enroll clicks</p>
                                 </div>
-                                <h3>No Courses Available</h3>
-                                <p>It looks like there are no courses featured right now. Check out our full catalog to see everything we offer.</p>
-                                <a href="#" onClick={(e) => { e.preventDefault(); handleNavClick('courses'); }} className="btn-empty-cta">
-                                    Explore Catalog
-                                </a>
+                                <div className="stat-item">
+                                    <h3>2+</h3>
+                                    <p>Months of sucess Experience</p>
+                                </div>
+                                <div className="stat-item">
+                                    <h3>37+</h3>
+                                    <p>sucess suggestions</p>
+                                </div>
+                                <div className="stat-item">
+                                    <h3>18+</h3>
+                                    <p>Connections</p>
+                                </div>
                             </div>
-                        )}
-                    </>
-                )}
-                <a href="#" onClick={(e) => { e.preventDefault(); handleNavClick('courses'); }} className="view-all-btn">View All</a>
-            </div>
-        </section>
-
-        <SkillsShowcase />
-        
-        <LearnAnythingSection />
-
-        <CourseInsightsSection />
-
-        <FeaturesSection handleNavClick={handleNavClick} />
-
-        <BlogsSection />
-
-        <section className="testimonials">
-            <div className="container">
-                <div className="section-header">
-                    <h2>Testimonials</h2>
+                        </div>
+                        <div className="hero-image">
+                            <div className="hero-image-wrapper">
+                                <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI1LTA2L3Jhd3BpeGVsb2ZmaWNlN19waG90b19vZl95b3VuZ19pbmRpYW5fYm95X2hvbGRpbmdfc3R1ZGVudF9iYWNrcF9mMTgzNzMwYy00ZDdmLTRlNzUtOGE1MC1iZmFkNTI5MjMyYjFfMS5qcGc.jpg" alt="Happy student" />
+                            </div>
+                            <div className="job-tag job-tag-1">18+ platforms</div>
+                            <div className="job-tag job-tag-2">29+ courses</div>
+                        </div>
+                    </div>
                 </div>
-                <div className="testimonial-grid">
-                    {testimonialsData.map((testimonial, index) => (
-                        <div className="testimonial-card" key={index}>
-                            <div className="testimonial-header">
-                                <img src={testimonial.image} alt={testimonial.name} />
-                                <div className="testimonial-author">
-                                    <h4>{testimonial.name}</h4>
-                                    <div className="stars">
-                                        <i className="fas fa-star"></i>
-                                        <i className="fas fa-star"></i>
-                                        <i className="fas fa-star"></i>
-                                        <i className="fas fa-star"></i>
-                                        <i className="fas fa-star"></i>
+            </section>
+
+            <HowItWorksSection />
+
+            <section className="popular-courses">
+                <div className="container">
+                    <div className="section-header">
+                        <h2>Offering Courses</h2>
+                    </div>
+                    {loading && <p className="status-message">Loading courses...</p>}
+                    {error && <p className="status-message error">{error}</p>}
+                    {!loading && !error && (
+                        <>
+                            {courses.length > 0 ? (
+                                <div className="course-grid">
+                                    {courses.slice(0, 3).map((course, index) => (
+                                        <CourseCard key={course.id || index} course={course} onLike={onLikeCourse} currentUser={currentUser} promptLogin={promptLogin} />
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="empty-state">
+                                    <div className="empty-state-icon">
+                                        <i className="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <h3>No Courses Available</h3>
+                                    <p>It looks like there are no courses featured right now. Check out our full catalog to see everything we offer.</p>
+                                    <a href="#" onClick={(e) => { e.preventDefault(); handleNavClick('courses'); }} className="btn-empty-cta">
+                                        Explore Catalog
+                                    </a>
+                                </div>
+                            )}
+                        </>
+                    )}
+                    <a href="#" onClick={(e) => { e.preventDefault(); handleNavClick('courses'); }} className="view-all-btn">View All</a>
+                </div>
+            </section>
+
+            <SkillsShowcase />
+            
+            <LearnAnythingSection onOpenChat={() => setIsChatOpen(true)} />
+
+            <CourseInsightsSection />
+
+            <FeaturesSection handleNavClick={handleNavClick} />
+
+            <BlogsSection />
+
+            <section className="testimonials">
+                <div className="container">
+                    <div className="section-header">
+                        <h2>Testimonials</h2>
+                    </div>
+                    <div className="testimonial-grid">
+                        {testimonialsData.map((testimonial, index) => (
+                            <div className="testimonial-card" key={index}>
+                                <div className="testimonial-header">
+                                    <img src={testimonial.image} alt={testimonial.name} />
+                                    <div className="testimonial-author">
+                                        <h4>{testimonial.name}</h4>
+                                        <div className="stars">
+                                            <i className="fas fa-star"></i>
+                                            <i className="fas fa-star"></i>
+                                            <i className="fas fa-star"></i>
+                                            <i className="fas fa-star"></i>
+                                            <i className="fas fa-star"></i>
+                                        </div>
                                     </div>
                                 </div>
+                                <p>"{testimonial.text}"</p>
                             </div>
-                            <p>"{testimonial.text}"</p>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
-            </div>
-        </section>
-    </>
-);
+            </section>
+            
+            {isChatOpen && <ChatbotModal onClose={() => setIsChatOpen(false)} />}
+        </>
+    );
+};
