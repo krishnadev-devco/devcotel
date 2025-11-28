@@ -177,7 +177,7 @@ const LearnAnythingSection = ({ onOpenChat }: { onOpenChat: () => void }) => (
                     <p className="pre-header">LEARNERS AND STUDENTS</p>
                     <h2><span>Hello!</span> i am here to help you #discover your perfect course..</h2>
                     <p>Build a deep, solid Networks with devcotel community and more.</p>
-                    <a href="https://devcotel-chatbot.vercel.app/" onClick={(e) => e.preventDefault()} className="btn-primary">LET'S FIND TOGETHER</a>
+                    <a href="https://devcotel-chatbot.vercel.app/"  className="btn-primary">LET'S FIND TOGETHER</a>
 
                 </div>
                 <div className="learn-anything-image">
