@@ -1,7 +1,38 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import { CourseCard } from '../components/CourseCard';
-import { ChatbotModal } from '../components/ChatbotModal';
+
+const roadmapData = [
+    { month: "Month 1", title: "Basic Python", icon: "fab fa-python" },
+    { month: "Month 2", title: "Stats & Probability", icon: "fas fa-chart-line" },
+    { month: "Month 3", title: "Advanced Python", icon: "fab fa-python" },
+    { month: "Month 4", title: "Visualization", icon: "fas fa-chart-bar" },
+    { month: "Month 5", title: "Machine Learning", icon: "fas fa-robot" },
+    { month: "Month 6", title: "Data Manipulation", icon: "fas fa-database" },
+    { month: "Month 7", title: "Deployment", icon: "fas fa-server" },
+    { month: "Month 8", title: "Deep Learning", icon: "fas fa-brain" },
+    { month: "Month 9", title: "CV/NLP", icon: "fas fa-comments" },
+    { month: "Month 10", title: "Interview Preparation", icon: "fas fa-user-tie" },
+    { month: "Month 11", title: "Projects & Resume Prep", icon: "fas fa-file-alt" },
+    { month: "Success!", title: "Land Your Dream Job", icon: "fas fa-trophy" }
+];
+
+const pinColors = ['#FFC200', '#FF5733', '#C70039', '#900C3F', '#581845', '#3D9970', '#0074D9', '#7FDBFF', '#39CCCC', '#B10DC9', '#F012BE', '#2ECC40'];
+
+const desktopPositions = [
+    { top: '10%', left: '15%' }, { top: '8%', left: '50%' }, { top: '10%', left: '85%' },
+    { top: '35%', left: '80%' }, { top: '38%', left: '50%' }, { top: '35%', left: '20%' },
+    { top: '60%', left: '15%' }, { top: '63%', left: '50%' }, { top: '60%', left: '85%' },
+    { top: '85%', left: '80%' }, { top: '88%', left: '50%' }, { top: '85%', left: '20%' }
+];
+
+const mobilePositions = [
+    { top: '3%', left: '50%' }, { top: '11%', left: '50%' }, { top: '19%', left: '50%' },
+    { top: '27%', left: '50%' }, { top: '35%', left: '50%' }, { top: '43%', left: '50%' },
+    { top: '51%', left: '50%' }, { top: '59%', left: '50%' }, { top: '67%', left: '50%' },
+    { top: '75%', left: '50%' }, { top: '83%', left: '50%' }, { top: '91%', left: '50%' }
+];
+
 
 const testimonialsData = [
     {
@@ -60,33 +91,32 @@ const showcaseData = {
         title: 'Expand your horizons with ChatGPT',
         description: 'Master tools and techniques to streamline your work, create stunning content, and 10x your productivity.',
         courses: [
-           { id: 5, image: 'https://img.freepik.com/free-vector/thoughtful-woman-with-laptop-planning-schedule-week_74855-20519.jpg?w=1060&t=st=1722256424~exp=1722257024~hmac=50e487198e723528f804fc64e62244e830e79391e0a29ef99335c05ab5976b97', title: 'Prompt Engineering for ChatGPT  2025 Tutorial', instructor: 'Dr. Jules White Top Instructor powered by [COURSERA].How to apply prompt engineering to effectively work with large language models, like ChatGPT How to use prompt patterns to tap into powerful capabilities within large language models.', rating: 4.8, reviews: 7160, price: 'devcotel recomented', old_price: 'this is not an affilation', bestseller: true, link: 'https://www.coursera.org/learn/prompt-engineering?utm_medium=sem&utm_source=gg&utm_campaign=b2c_india_x_coursera_ftcof_courseraplus_cx_dr_bau_gg_sem_bd-ex_in_all_m_hyb_24-05_x&campaignid=21327429274&adgroupid=162815312357&device=c&keyword=coursera&matchtype=e&network=g&devicemodel=&creativeid=700607287634&assetgroupid=&targetid=kwd-36262515261&extensionid=&placement=&gad_source=1&gad_campaignid=21327429274&gbraid=0AAAAADdKX6Y7ZtIr7vsRs0oj7m9hAQSYl&gclid=CjwKCAiAwqHIBhAEEiwAx9cTeemR1ZwxOa-7IJqD-MMae5SEl9Hzo-bA3tV8Q6HpYAgcY4Zzrw7MchoCF-EQAvD_BwE' },
-           { id: 6, image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop', title: 'AI-Powered Business Analysis: Excel, KPIs & GenAI Specialization', instructor: 'Kelley O Connell [COURSERA]Apply GenAI tools like ChatGPT to automate business analysis tasks and generate faster insights across multiple industries.Create impactful data visualizations and reports using AI-powered tools while maintaining ethical AI practices.', rating: 4.5, reviews: 10, price: 'Devcotel recomented', old_price: 'this is not an affilation', bestseller: true, link: 'https://www.coursera.org/specializations/ai-powered-business-analysis-excel-kpis-and-genai' },
-
+            { id: 5, image: 'https://img.freepik.com/free-vector/thoughtful-woman-with-laptop-planning-schedule-week_74855-20519.jpg?w=1060&t=st=1722256424~exp=1722257024~hmac=50e487198e723528f804fc64e62244e830e79391e0a29ef99335c05ab5976b97', title: 'Prompt Engineering for ChatGPT', instructor: 'Dr. Jules White Top Instructor powered by [COURSERA].How to apply prompt engineering to effectively work with large language models, like ChatGPT How to use prompt patterns to tap into powerful capabilities within large language models.', rating: 4.8, reviews: 7160, price: 'devcotel recomented', old_price: 'this is not an affilation', bestseller: true, link: 'https://www.coursera.org/learn/prompt-engineering?utm_medium=sem&utm_source=gg&utm_campaign=b2c_india_x_coursera_ftcof_courseraplus_cx_dr_bau_gg_sem_bd-ex_in_all_m_hyb_24-05_x&campaignid=21327429274&adgroupid=162815312357&device=c&keyword=coursera&matchtype=e&network=g&devicemodel=&creativeid=700607287634&assetgroupid=&targetid=kwd-36262515261&extensionid=&placement=&gad_source=1&gad_campaignid=21327429274&gbraid=0AAAAADdKX6Y7ZtIr7vsRs0oj7m9hAQSYl&gclid=CjwKCAiAwqHIBhAEEiwAx9cTeemR1ZwxOa-7IJqD-MMae5SEl9Hzo-bA3tV8Q6HpYAgcY4Zzrw7MchoCF-EQAvD_BwE' },
+            { id: 6, image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop', title: 'AI-Powered Business Analysis: Excel, KPIs & GenAI Specialization', instructor: 'Kelley O Connell [COURSERA]Apply GenAI tools like ChatGPT to automate business analysis tasks and generate faster insights across multiple industries.Create impactful data visualizations and reports using AI-powered tools while maintaining ethical AI practices.', rating: 4.5, reviews: 10, price: 'Devcotel recomented', old_price: 'this is not an affilation', bestseller: true, link: 'https://www.coursera.org/specializations/ai-powered-business-analysis-excel-kpis-and-genai' },
         ]
     },
     'Data Science': {
         title: 'Unlock insights with Data Science',
         description: 'Learn to analyze data, build predictive models, and make data-driven decisions that impact business outcomes.',
         courses: [
-            { id: 2, image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop', title: 'Introduction to Python for Data Science', instructor: 'Jane Smith', rating: 4.9, reviews: 9876, price: '₹499', old_price: '₹2,999', bestseller: false },
-            { id: 7, image: 'https://images.unsplash.com/photo-1638369320327-58a5848c9a3b?q=80&w=1964&auto=format&fit=crop', title: 'Advanced Machine Learning & AI', instructor: 'Dr. Angela Yu', rating: 4.8, reviews: 25432, price: '₹799', old_price: '₹4,499', bestseller: true },
+            { id: 2, image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop', title: 'Introduction to Python for Data Science', instructor: 'Jane Smith', rating: 4.9, reviews: 9876, price: '₹499', old_price: '₹2,999', bestseller: false, link: 'https://krishnadev-devco.github.io/form-test/' },
+            { id: 7, image: 'https://images.unsplash.com/photo-1638369320327-58a5848c9a3b?q=80&w=1964&auto=format&fit=crop', title: 'Advanced Machine Learning & AI', instructor: 'Dr. Angela Yu', rating: 4.8, reviews: 25432, price: '₹799', old_price: '₹4,499', bestseller: true, link: 'https://krishnadev-devco.github.io/form-test/' },
         ]
     },
     'Python': {
         title: 'Master the Python programming language',
         description: 'From web development to data analysis, Python is a versatile language that opens doors to countless opportunities.',
          courses: [
-            { id: 8, image: 'https://images.unsplash.com/photo-1526379095098-d64698bf3824?q=80&w=2070&auto=format&fit=crop', title: 'Python for Absolute Beginners', instructor: 'Jose Portilla', rating: 4.6, reviews: 150231, price: '₹499', old_price: '₹1,999', bestseller: true },
-            { id: 9, image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=2088&auto=format&fit=crop', title: 'Automate the Boring Stuff with Python', instructor: 'Al Sweigart', rating: 4.7, reviews: 89123, price: '₹549', old_price: '₹2,739', bestseller: false },
+            { id: 8, image: 'https://images.unsplash.com/photo-1526379095098-d64698bf3824?q=80&w=2070&auto=format&fit=crop', title: 'Python for Absolute Beginners', instructor: 'Jose Portilla', rating: 4.6, reviews: 150231, price: '₹499', old_price: '₹1,999', bestseller: true, link: 'https://krishnadev-devco.github.io/form-test/' },
+            { id: 9, image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=2088&auto=format&fit=crop', title: 'Automate the Boring Stuff with Python', instructor: 'Al Sweigart', rating: 4.7, reviews: 89123, price: '₹549', old_price: '₹2,739', bestseller: false, link: 'https://krishnadev-devco.github.io/form-test/' },
         ]
     },
     'AI': {
         title: 'Dive into the world of Artificial Intelligence',
         description: 'Explore the fundamentals of AI, machine learning, and neural networks to build intelligent systems of the future.',
         courses: [
-             { id: 5, image: 'https://img.freepik.com/free-vector/thoughtful-woman-with-laptop-planning-schedule-week_74855-20519.jpg?w=1060&t=st=1722256424~exp=1722257024~hmac=50e487198e723528f804fc64e62244e830e79391e0a29ef99335c05ab5976b97', title: 'The Complete AI Guide: Learn ChatGPT, Generative AI & More', instructor: 'Julian Melanson, Benza Maman', rating: 4.5, reviews: 51662, price: '₹549', old_price: '₹2,739', bestseller: true },
-             { id: 7, image: 'https://images.unsplash.com/photo-1638369320327-58a5848c9a3b?q=80&w=1964&auto=format&fit=crop', title: 'Advanced Machine Learning & AI', instructor: 'Dr. Angela Yu', rating: 4.8, reviews: 25432, price: '₹799', old_price: '₹4,499', bestseller: true },
+             { id: 5, image: 'https://img.freepik.com/free-vector/thoughtful-woman-with-laptop-planning-schedule-week_74855-20519.jpg?w=1060&t=st=1722256424~exp=1722257024~hmac=50e487198e723528f804fc64e62244e830e79391e0a29ef99335c05ab5976b97', title: 'The Complete AI Guide: Learn ChatGPT, Generative AI & More', instructor: 'Julian Melanson, Benza Maman', rating: 4.5, reviews: 51662, price: '₹549', old_price: '₹2,739', bestseller: true, link: 'https://krishnadev-devco.github.io/form-test/' },
+             { id: 7, image: 'https://images.unsplash.com/photo-1638369320327-58a5848c9a3b?q=80&w=1964&auto=format&fit=crop', title: 'Advanced Machine Learning & AI', instructor: 'Dr. Angela Yu', rating: 4.8, reviews: 25432, price: '₹799', old_price: '₹4,499', bestseller: true, link: 'https://krishnadev-devco.github.io/form-test/' },
         ]
     },
 };
@@ -101,15 +131,13 @@ interface SkillCourse {
     price: string;
     old_price: string;
     bestseller: boolean;
-    link?: string;
+    link: string;
 }
 
 const SkillCourseCard: React.FC<{ course: SkillCourse }> = ({ course }) => (
-    <a href={course.link || "https://krishnadev-devco.github.io/form-test/"} target="_blank" rel="noopener noreferrer" className="skill-course-card">
-        <div className="skill-card-image">
-            <img src={course.image} alt={course.title} />
-        </div>
-        <div className="skill-card-content">
+    <div className="skill-course-card">
+        <img src={course.image} alt={course.title} />
+        <div className="skill-card-details">
             <h4>{course.title}</h4>
             <p className="instructor">{course.instructor}</p>
             <div className="rating-line">
@@ -122,11 +150,11 @@ const SkillCourseCard: React.FC<{ course: SkillCourse }> = ({ course }) => (
                 <span className="old-price">{course.old_price}</span>
             </div>
             {course.bestseller && <div className="bestseller-tag">Bestseller</div>}
+            <a href={course.link} target="_blank" rel="noopener noreferrer" className="btn-know-more">
+                Know More
+            </a>
         </div>
-        <div className="know-more-link">
-            Know More <i className="fas fa-arrow-right"></i>
-        </div>
-    </a>
+    </div>
 );
 
 
@@ -169,16 +197,15 @@ const SkillsShowcase = () => {
 };
 
 
-const LearnAnythingSection = ({ onOpenChat }: { onOpenChat: () => void }) => (
+const LearnAnythingSection = () => (
     <section className="learn-anything-section">
         <div className="container">
             <div className="learn-anything-content">
                 <div className="learn-anything-text">
                     <p className="pre-header">LEARNERS AND STUDENTS</p>
-                    <h2><span>Hello!</span> i am here to help you #discover your perfect course..</h2>
+                    <h2><span>You</span> can #be somebody.</h2>
                     <p>Build a deep, solid Networks with devcotel community and more.</p>
-                    <a href="https://devcotel-chatbot.vercel.app/"  className="btn-primary">LET'S FIND TOGETHER</a>
-
+                    <a href="https://devcotel-chatbot.vercel.app/" target="_blank" rel="noopener noreferrer" className="btn-primary">ENTREPRENEUR, start here</a>
                 </div>
                 <div className="learn-anything-image">
                     <img src="https://img.freepik.com/free-vector/freelancer-working-laptop-her-house_1150-35054.jpg?semt=ais_hybrid&w=740&q=80" alt="Illustration of learning tools" />
@@ -234,239 +261,241 @@ const BlogsSection = () => (
     </section>
 );
 
-const CourseInsightsSection = () => {
-    const insights = [
-        {
-            title: "Artificial Intelligence",
-            score: 98,
-            icon: "fas fa-brain",
-            description: "Simulation of human intelligence processes by machines, especially computer systems.",
-            future: "Projected to contribute $15.7 trillion to the global economy by 2030. Key for automation."
-        },
-        {
-            title: "Machine Learning",
-            score: 96,
-            icon: "fas fa-robot",
-            description: "A subset of AI that provides systems the ability to automatically learn and improve from experience.",
-            future: "Essential for predictive analytics in finance, healthcare, and retail. High career growth potential."
-        },
-        {
-            title: "Data Science",
-            score: 95,
-            icon: "fas fa-chart-pie",
-            description: "Extracting knowledge and insights from noisy, structured and unstructured data.",
-            future: "Data is the new oil. Companies rely on data scientists to interpret data for strategic decisions."
-        },
-        {
-            title: "Cyber Security",
-            score: 99,
-            icon: "fas fa-shield-alt",
-            description: "The practice of defending computers, servers, mobile devices, electronic systems, and networks.",
-            future: "With increasing cyber threats, this is a zero-unemployment field with massive demand."
+
+const DataScienceRoadmap = ({handleNavClick}) => {
+    const sectionRef = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            },
+            {
+                threshold: 0.2, // Trigger when 20% of the element is visible
+            }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
         }
-    ];
+
+        return () => {
+            if (sectionRef.current) {
+                observer.unobserve(sectionRef.current);
+            }
+        };
+    }, []);
+
+    const snakePath = "M50,100 C250,50,350,150,500,100 S750,50,950,120 C900,250,750,350,500,320 S250,250,100,350 C-50,500,250,550,500,500 S750,450,900,550 C950,650,800,750,500,700 S200,650,50,720";
+    const mobilePath = "M50,50 C100,200 0,350 50,500 S100,800 50,950 S0,1250 50,1400 V1550";
 
     return (
-        <section className="course-insights-section">
+        <section className="roadmap">
             <div className="container">
                 <div className="section-header">
-                    <h2>Course Career Impact Map</h2>
-                    <p>Understand the future relevance, growth potential, and market demand for top technology domains (Rated out of 100).</p>
+                    <h2>Data Science Roadmap</h2>
+                    <p>Your step-by-step guide to becoming a successful Data Scientist.</p>
                 </div>
 
-                <div className="insights-grid">
-                    {insights.map((item, index) => (
-                        <div className="insight-card" key={index}>
-                            <div className="insight-header">
-                                <div className="insight-icon"><i className={item.icon}></i></div>
-                                <div className="insight-score-box">
-                                    <span className="score-val">{item.score}</span>
-                                    <span className="score-label">/100 Impact</span>
+                <div className="roadmap-visual" ref={sectionRef}>
+                    <svg className="roadmap-svg roadmap-svg-desktop" viewBox="0 0 1000 800" preserveAspectRatio="none">
+                        <g className="scenery">
+                           <path className="scenery-mountain" d="M 700 350 L 780 200 L 860 350 Z" style={{'--delay': '0.1s'} as React.CSSProperties} />
+                           <path className="scenery-mountain" d="M 750 350 L 830 180 L 910 350 Z" style={{'--delay': '0.2s'} as React.CSSProperties}/>
+                           <path className="scenery-mountain" d="M 100 750 L 180 600 L 260 750 Z" style={{'--delay': '0.4s'} as React.CSSProperties}/>
+                           <path className="scenery-mountain" d="M 150 750 L 230 580 L 310 750 Z" style={{'--delay': '0.5s'} as React.CSSProperties}/>
+
+                           <path className="scenery-cloud" d="M 250 150 a 30 30 0 0 1 0 60 H 350 a 30 30 0 0 1 0 -60 a 40 40 0 0 1 -50 -30 a 40 40 0 0 1 -50 30 Z" style={{'--delay': '0.6s'} as React.CSSProperties}/>
+                           <path className="scenery-cloud" d="M 800 50 a 20 20 0 0 1 0 40 H 870 a 20 20 0 0 1 0 -40 a 30 30 0 0 1 -35 -20 a 30 30 0 0 1 -35 20 Z" style={{'--delay': '0.3s'} as React.CSSProperties}/>
+                           <path className="scenery-cloud" d="M 500 650 a 25 25 0 0 1 0 50 H 580 a 25 25 0 0 1 0 -50 a 35 35 0 0 1 -40 -25 a 35 35 0 0 1 -40 25 Z" style={{'--delay': '0.7s'} as React.CSSProperties}/>
+
+                           <g className="scenery-tree" transform="translate(100, 200) scale(1.2)" style={{'--delay': '0.8s'} as React.CSSProperties}>
+                               <rect x="-5" y="30" width="10" height="20" />
+                               <circle cx="0" cy="15" r="20" />
+                           </g>
+                           <g className="scenery-tree" transform="translate(200, 450) scale(1)" style={{'--delay': '0.9s'} as React.CSSProperties}>
+                                <rect x="-5" y="30" width="10" height="20" />
+                                <circle cx="0" cy="15" r="20" />
+                           </g>
+                           <g className="scenery-tree" transform="translate(900, 300) scale(1.5)" style={{'--delay': '1s'} as React.CSSProperties}>
+                                <rect x="-5" y="30" width="10" height="20" />
+                                <circle cx="0" cy="15" r="20" />
+                           </g>
+                            <g className="scenery-tree" transform="translate(650, 750) scale(1.1)" style={{'--delay': '1.1s'} as React.CSSProperties}>
+                                <rect x="-5" y="30" width="10" height="20" />
+                                <circle cx="0" cy="15" r="20" />
+                           </g>
+                       </g>
+                        <path className="roadmap-path-draw" d={snakePath} />
+                        <path className="roadmap-path-draw-dashed" d={snakePath} />
+                    </svg>
+                    <svg className="roadmap-svg roadmap-svg-mobile" viewBox="0 0 100 1600" preserveAspectRatio="none">
+                        <g className="scenery">
+                            <path className="scenery-cloud" d="M 20 100 a 15 15 0 0 1 0 30 H 60 a 15 15 0 0 1 0 -30 a 20 20 0 0 1 -20 -15 a 20 20 0 0 1 -20 15 Z" style={{'--delay': '0.5s'} as React.CSSProperties} />
+                            <g className="scenery-tree" transform="translate(80, 500) scale(1)" style={{'--delay': '0.8s'} as React.CSSProperties}>
+                                <rect x="-5" y="30" width="10" height="20" />
+                                <circle cx="0" cy="15" r="20" />
+                            </g>
+                            <g className="scenery-tree" transform="translate(20, 1100) scale(0.8)" style={{'--delay': '1s'} as React.CSSProperties}>
+                                <rect x="-5" y="30" width="10" height="20" />
+                                <circle cx="0" cy="15" r="20" />
+                            </g>
+                        </g>
+                        <path className="roadmap-path-draw" d={mobilePath} />
+                        <path className="roadmap-path-draw-dashed" d={mobilePath} />
+                    </svg>
+
+                    <div className="roadmap-milestones-desktop">
+                        {roadmapData.map((item, index) => (
+                            <div
+                                key={index}
+                                className={`roadmap-milestone ${desktopPositions[index].top > '40%' ? 'align-top' : ''}`}
+                                style={{
+                                    '--delay': `${index * 0.15 + 1}s`,
+                                    '--pin-color': pinColors[index],
+                                    top: desktopPositions[index].top,
+                                    left: desktopPositions[index].left,
+                                } as React.CSSProperties}
+                            >
+                                <div className="roadmap-pin"></div>
+                                <div className="roadmap-info">
+                                    <div className="month">{item.month}</div>
+                                    <div className="title">{item.title}</div>
                                 </div>
                             </div>
-                            <h3>{item.title}</h3>
-                            <p className="insight-desc">{item.description}</p>
-                            <div className="insight-future">
-                                <strong><i className="fas fa-chart-line"></i> Future Scope:</strong>
-                                <p>{item.future}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                <div className="our-approach-section">
-                    <div className="approach-block">
-                        <div className="approach-icon"><i className="fas fa-balance-scale"></i></div>
-                        <div className="approach-content">
-                            <h3>Unbiased Recommendation System</h3>
-                            <p>We believe in transparency. Our recommendations are purely based on course quality, curriculum relevance, and verified student reviews. We do not promote courses based on commission or marketing budgets.</p>
-                        </div>
+                        ))}
                     </div>
-                    <div className="approach-block">
-                        <div className="approach-icon"><i className="fas fa-users"></i></div>
-                        <div className="approach-content">
-                            <h3>Community Group Discounts</h3>
-                            <p>Education should be affordable. We group learners with similar interests to negotiate exclusive bulk discounts with premium course providers, making high-quality education accessible to everyone.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-};
 
-const HowItWorksSection = () => (
-    <section className="how-it-works-section">
-        <div className="container">
-            <div className="section-header">
-                <h2>Our Plan for Your Success</h2>
-                <p>We simplify your learning journey with AI and community power.</p>
-            </div>
-            <div className="steps-container">
-                <div className="step-card">
-                    <div className="step-number">1</div>
-                    <div className="step-icon"><i className="fas fa-search-location"></i></div>
-                    <h3>Find and Select</h3>
-                    <p>Choose a course from any of our platforms as per user request and recommended by the AI.</p>
-                </div>
-                <div className="step-connector"><i className="fas fa-chevron-right"></i></div>
-                <div className="step-card">
-                    <div className="step-number">2</div>
-                    <div className="step-icon"><i className="fas fa-user-friends"></i></div>
-                    <h3>Group Up</h3>
-                    <p>Devcotel automatically adds you to a group of interested buyers.</p>
-                </div>
-                <div className="step-connector"><i className="fas fa-chevron-right"></i></div>
-                <div className="step-card">
-                    <div className="step-number">3</div>
-                    <div className="step-icon"><i className="fas fa-tags"></i></div>
-                    <h3>Enroll and Save</h3>
-                    <p>Once the group hits the minimum size, everyone gets the negotiated discounts and enrolls!</p>
-                </div>
-            </div>
-        </div>
-    </section>
-);
-
-export const HomePage = ({ courses, loading, error, handleNavClick, onLikeCourse, currentUser, promptLogin }) => {
-    const [isChatOpen, setIsChatOpen] = useState(false);
-
-    return (
-        <>
-            <section className="hero">
-                <div className="container">
-                    <div className="hero-content">
-                        <div className="hero-text">
-                            <h1>WE keep your #carrier signal's clean.</h1>
-                            <p>THE SMARTEST LEARNING ECOSYSTEM CUTS THROUGH THE NOICE . OUR TEAM AND CORE AI IS RADICALLY BIASED TOWARDS YOUR CORE NEEDS .    <b>| DATASCIENCE | MACHINE LEARNING | CYBER SECURITY | ARTIFICAL INTELLIGENCE | CLOUD COMPUTING |</b></p>
-                            <form className="hero-form">
-                                <input type="email" placeholder="Enter your email" />
-                                <button type="submit">Start Free Trial</button>
-                            </form>
-                            <div className="hero-stats">
-                                <div className="stat-item">
-                                    <h3>118+</h3>
-                                    <p>Parllel enroll clicks</p>
+                    <div className="roadmap-milestones-mobile">
+                        {roadmapData.map((item, index) => (
+                            <div
+                                key={`mobile-${index}`}
+                                className={`roadmap-milestone ${index % 2 !== 0 ? 'align-top' : ''}`}
+                                style={{
+                                    '--delay': `${index * 0.15 + 1}s`,
+                                    '--pin-color': pinColors[index],
+                                    top: mobilePositions[index].top,
+                                    left: mobilePositions[index].left,
+                                    transform: `translateX(${index % 2 === 0 ? '-10px' : '-20px'})`
+                                } as React.CSSProperties}
+                            >
+                                <div className="roadmap-pin"></div>
+                                <div className="roadmap-info">
+                                    <div className="month">{item.month}</div>
+                                    <div className="title">{item.title}</div>
                                 </div>
-                                <div className="stat-item">
-                                    <h3>2+</h3>
-                                    <p>Months of sucess Experience</p>
-                                </div>
-                                <div className="stat-item">
-                                    <h3>37+</h3>
-                                    <p>sucess suggestions</p>
-                                </div>
-                                <div className="stat-item">
-                                    <h3>18+</h3>
-                                    <p>Connections</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="hero-image">
-                            <div className="hero-image-wrapper">
-                                <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI1LTA2L3Jhd3BpeGVsb2ZmaWNlN19waG90b19vZl95b3VuZ19pbmRpYW5fYm95X2hvbGRpbmdfc3R1ZGVudF9iYWNrcF9mMTgzNzMwYy00ZDdmLTRlNzUtOGE1MC1iZmFkNTI5MjMyYjFfMS5qcGc.jpg" alt="Happy student" />
-                            </div>
-                            <div className="job-tag job-tag-1">18+ platforms</div>
-                            <div className="job-tag job-tag-2">29+ courses</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <HowItWorksSection />
-
-            <section className="popular-courses">
-                <div className="container">
-                    <div className="section-header">
-                        <h2>Offering Courses</h2>
-                    </div>
-                    {loading && <p className="status-message">Loading courses...</p>}
-                    {error && <p className="status-message error">{error}</p>}
-                    {!loading && !error && (
-                        <>
-                            {courses.length > 0 ? (
-                                <div className="course-grid">
-                                    {courses.slice(0, 3).map((course, index) => (
-                                        <CourseCard key={course.id || index} course={course} onLike={onLikeCourse} currentUser={currentUser} promptLogin={promptLogin} />
-                                    ))}
-                                </div>
-                            ) : (
-                                <div className="empty-state">
-                                    <div className="empty-state-icon">
-                                        <i className="fas fa-graduation-cap"></i>
-                                    </div>
-                                    <h3>No Courses Available</h3>
-                                    <p>It looks like there are no courses featured right now. Check out our full catalog to see everything we offer.</p>
-                                    <a href="#" onClick={(e) => { e.preventDefault(); handleNavClick('courses'); }} className="btn-empty-cta">
-                                        Explore Catalog
-                                    </a>
-                                </div>
-                            )}
-                        </>
-                    )}
-                    <a href="#" onClick={(e) => { e.preventDefault(); handleNavClick('courses'); }} className="view-all-btn">View All</a>
-                </div>
-            </section>
-
-            <SkillsShowcase />
-            
-            <LearnAnythingSection onOpenChat={() => setIsChatOpen(true)} />
-
-            <CourseInsightsSection />
-
-            <FeaturesSection handleNavClick={handleNavClick} />
-
-            <BlogsSection />
-
-            <section className="testimonials">
-                <div className="container">
-                    <div className="section-header">
-                        <h2>Testimonials</h2>
-                    </div>
-                    <div className="testimonial-grid">
-                        {testimonialsData.map((testimonial, index) => (
-                            <div className="testimonial-card" key={index}>
-                                <div className="testimonial-header">
-                                    <img src={testimonial.image} alt={testimonial.name} />
-                                    <div className="testimonial-author">
-                                        <h4>{testimonial.name}</h4>
-                                        <div className="stars">
-                                            <i className="fas fa-star"></i>
-                                            <i className="fas fa-star"></i>
-                                            <i className="fas fa-star"></i>
-                                            <i className="fas fa-star"></i>
-                                            <i className="fas fa-star"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p>"{testimonial.text}"</p>
                             </div>
                         ))}
                     </div>
                 </div>
-            </section>
-            
-            {isChatOpen && <ChatbotModal onClose={() => setIsChatOpen(false)} />}
-        </>
+                <a href="#" onClick={(e) => { e.preventDefault(); handleNavClick('carrier-roadmap'); }} className="btn-generate-roadmap">
+                    Generate my own roadmap
+                </a>
+            </div>
+        </section>
     );
-};
+}
+
+export const HomePage = ({ courses, loading, error, handleNavClick, onLikeCourse, currentUser, promptLogin }) => (
+    <>
+        <section className="hero">
+            <div className="container">
+                <div className="hero-content">
+                    <div className="hero-text">
+                        <h1>Learning skills for a better career</h1>
+                        <p>We believe everyone has the capacity to be creative. Get started with our free trial and join a community of passionate learners today.</p>
+                        <form className="hero-form">
+                            <input type="email" placeholder="Enter your email" />
+                            <button type="submit">Start Free Trial</button>
+                        </form>
+                        <div className="hero-stats">
+                            <div className="stat-item">
+                                <h3>118+</h3>
+                                <p>Parllel enroll clicks</p>
+                            </div>
+                            <div className="stat-item">
+                                <h3>5+</h3>
+                                <p>Months of Experience</p>
+                            </div>
+                            <div className="stat-item">
+                                <h3>38+</h3>
+                                <p>sucess suggestion</p>
+                            </div>
+                            <div className="stat-item">
+                                <h3>47+</h3>
+                                <p>Connections</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="hero-image">
+                        <div className="hero-image-wrapper">
+                            <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI1LTA2L3Jhd3BpeGVsb2ZmaWNlN19waG90b19vZl95b3VuZ19pbmRpYW5fYm95X2hvbGRpbmdfc3R1ZGVudF9iYWNrcF9mMTgzNzMwYy00ZDdmLTRlNzUtOGE1MC1iZmFkNTI5MjMyYjFfMS5qcGc.jpg" alt="Happy student" />
+                        </div>
+                        <div className="job-tag job-tag-1">21+ platforms</div>
+                        <div className="job-tag job-tag-2">19+ courses</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section className="popular-courses">
+            <div className="container">
+                <div className="section-header">
+                    <h2>Offering Courses</h2>
+                </div>
+                {loading && <p className="status-message">Loading courses...</p>}
+                {error && <p className="status-message error">{error}</p>}
+                {!loading && !error && (
+                    <div className="course-grid">
+                        {courses.slice(0, 3).map((course, index) => (
+                            <CourseCard key={course.id || index} course={course} onLike={onLikeCourse} currentUser={currentUser} promptLogin={promptLogin} />
+                        ))}
+                    </div>
+                )}
+                {!loading && courses.length === 0 && !error && <p className="status-message">No courses available at the moment.</p>}
+                <a href="#" onClick={(e) => { e.preventDefault(); handleNavClick('courses'); }} className="view-all-btn">View All</a>
+            </div>
+        </section>
+
+        <SkillsShowcase />
+        
+        <LearnAnythingSection />
+
+        <DataScienceRoadmap handleNavClick={handleNavClick} />
+
+        <FeaturesSection handleNavClick={handleNavClick} />
+
+        <BlogsSection />
+
+        <section className="testimonials">
+            <div className="container">
+                <div className="section-header">
+                    <h2>Testimonials</h2>
+                </div>
+                <div className="testimonial-grid">
+                    {testimonialsData.map((testimonial, index) => (
+                        <div className="testimonial-card" key={index}>
+                            <div className="testimonial-header">
+                                <img src={testimonial.image} alt={testimonial.name} />
+                                <div className="testimonial-author">
+                                    <h4>{testimonial.name}</h4>
+                                    <div className="stars">
+                                        <i className="fas fa-star"></i>
+                                        <i className="fas fa-star"></i>
+                                        <i className="fas fa-star"></i>
+                                        <i className="fas fa-star"></i>
+                                        <i className="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>"{testimonial.text}"</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    </>
+);
