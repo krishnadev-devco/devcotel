@@ -176,7 +176,7 @@ const LearnAnythingSection = () => (
                     <p className="pre-header">LEARNERS AND STUDENTS</p>
                     <h2><span>Hello!</span> i am here to help you #discover your perfect course..</h2>
                     <p>Build a deep, solid Networks with devcotel community and more.</p>
-                    <a href="https://devcotel-chatbot.vercel.app/" onClick={(e) => e.preventDefault()} className="btn-primary">LET'S FIND TOGETHER</a>
+                    <a href="https://devcotel-chatbot.vercel.app/"  className="btn-primary">LET'S FIND TOGETHER</a>
                 </div>
                 <div className="learn-anything-image">
                     <img src="https://img.freepik.com/free-vector/freelancer-working-laptop-her-house_1150-35054.jpg?semt=ais_hybrid&w=740&q=80" alt="Illustration of learning tools" />
