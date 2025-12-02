@@ -379,7 +379,7 @@ export const HomePage = ({ courses, loading, error, handleNavClick, onLikeCourse
                     </div>
                     <div className="hero-image">
                         <div className="hero-image-wrapper">
-                            <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI1LTA2L3Jhd3BpeGVsb2ZmaWNlN19waG90b19vZl95b3VuZ19pbmRpYW5fYm95X2hvbGRpbmdfc3R1ZGVudF9iYWNrcF9mMTgzNzMwYy00ZDdmLTRlNzUtOGE1MC1iZmFkNTI5MjMyYjFfMS5qcGc.jpg" alt="Happy student" />
+                            <img src="" alt="Happy student" />
                         </div>
                         <div className="job-tag job-tag-1">18+ platforms</div>
                         <div className="job-tag job-tag-2">29+ courses</div>
