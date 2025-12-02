@@ -51,9 +51,9 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, isLast }) => (
                     <p>{review.reviewText}</p>
                 </div>
                 <div className="review-actions">
-                    <div className="review-action"><i className="far fa-comment icon"></i> <span>3</span></div>
-                    <div className="review-action"><i className="fas fa-retweet icon"></i> <span>5</span></div>
-                    <div className="review-action"><i className="far fa-heart icon"></i> <span>12</span></div>
+                    <div className="review-action"><i className="far fa-comment icon"></i> <span>0</span></div>
+                    <div className="review-action"><i className="fas fa-retweet icon"></i> <span>0</span></div>
+                    <div className="review-action"><i className="far fa-heart icon"></i> <span>0</span></div>
                     <div className="review-action"><i className="fas fa-upload icon"></i></div>
                 </div>
             </div>
