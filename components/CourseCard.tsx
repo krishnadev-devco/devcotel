@@ -97,7 +97,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course, onLike, currentU
                     </button>
                 </div>
                 <div className="course-actions">
-                    <a href={course.community_link || '#'} className="btn btn-join-community" target="_blank" rel="noopener noreferrer">Join Community</a>
+                    <a href={course.community_link || '#'} className="btn btn-join-community" target="_blank" rel="noopener noreferrer">Visit website</a>
                     <a 
                         href={course.enroll_link || '#'} 
                         className="btn btn-enroll" 
